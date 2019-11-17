@@ -1,0 +1,14 @@
+@import '../../common/style/responsiveness';
+
+.chat {
+  position: fixed;
+  @include xs {
+    width: 100%;
+  }
+  @include md {
+    width: 100%;
+  }
+  @include lg {
+    width: 30%;
+  }
+}

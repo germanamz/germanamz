@@ -1,13 +1,13 @@
-const webpack = require("webpack");
-const config = require("./webpack.config");
+const webpack = require('webpack');
+const config = require('./webpack.config');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
 
-  devtool: "cheap-module-eval-source-map", // use eval for faster builds/poor debugging
+  devtool: 'cheap-module-eval-source-map', // use eval for faster builds/poor debugging
 
   entry: {
-    app: ["webpack-hot-middleware/client?reload=true", ...config.entry.app],
+    app: [ 'webpack-hot-middleware/client?reload=true', ...config.entry.app ],
   },
 
   resolve: config.resolve,
@@ -26,7 +26,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: /node_modules/,
-        use: ["react-hot-loader/webpack"],
+        use: [ 'react-hot-loader/webpack' ],
       },
     ],
   },

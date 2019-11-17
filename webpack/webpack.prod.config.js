@@ -1,9 +1,9 @@
-const config = require("./webpack.config");
+const config = require('./webpack.config');
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
 
-  devtool: "source-map",
+  devtool: 'source-map',
 
   entry: config.entry,
 
@@ -18,6 +18,6 @@ module.exports = {
   plugins: config.plugins,
 
   module: {
-    rules: [...config.module.rules],
+    rules: [ ...config.module.rules ],
   },
 };
