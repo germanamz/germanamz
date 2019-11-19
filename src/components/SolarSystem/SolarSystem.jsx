@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import SolarSystemStyles from './SolarSystem.scss';
+import './SolarSystem.scss';
 
-const { initSolarSystem } = require('./SolarSystemD3');
+const { initSolarSystem, resize } = require('./SolarSystemD3');
 
 export function SolarSystem() {
   let canvas;
+  window.addEventListener('resize', () => canvas && resize());
   useEffect(() => { initSolarSystem(canvas); });
   return (
-    <canvas className={SolarSystemStyles.solarSystem} ref={(cnv) => { canvas = cnv; }} />
+    <div className="solar-system">
+      <canvas ref={(cnv) => { canvas = cnv; }} />
+    </div>
   );
 }

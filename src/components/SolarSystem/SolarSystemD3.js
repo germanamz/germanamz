@@ -48,7 +48,7 @@ function tickedFactory(forceSim, canvas) {
       .getContext('2d');
 
     // 0,0 at canvas center
-    ctx.translate(width / 2, height / 2);
+    ctx.translate(width * 0.3125, height / 2);
 
     // Apply zoom
     if (zoomLevel) {
@@ -62,7 +62,7 @@ function tickedFactory(forceSim, canvas) {
 
     const nodes = forceSim.nodes();
     nodes.forEach((node) => {
-      const r = Math.min(node.name === 'sun' ? 20 : Infinity, node.r * bodyDistortion);
+      const r = node.r * bodyDistortion;
       const color = chroma(node.color);
 
       ctx.fillStyle = color.css();
@@ -140,10 +140,14 @@ function load(forceSim, au, zoomed, bodies) {
     .strength(pxG);
 }
 
-export function initSolarSystem(canvas, w = window.innerWidth, h = window.innerHeight) {
-  width = w;
-  height = h;
-  const au = d3.scaleLinear().range([ 0, Math.min(width, height) ]);
+export function resize() {
+  width = window.innerWidth;
+  height = window.innerHeight;
+}
+
+export function initSolarSystem(canvas) {
+  resize();
+  const au = d3.scaleLinear().range([ 0, width ]);
   const forceSim = d3
     .forceSimulation()
     .alphaDecay(0)

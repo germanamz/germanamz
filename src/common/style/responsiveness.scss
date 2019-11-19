@@ -23,7 +23,7 @@
   }
 }
 
-@mixin lg {
+@mixin xl {
   @media screen and (min-width: 1920px) and (max-width: 5000px) {
     @content;
   }

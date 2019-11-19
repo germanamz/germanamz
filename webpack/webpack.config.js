@@ -24,6 +24,7 @@ module.exports = {
     new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),
     new HTMLWebpackPlugin({
       template: path.resolve('src/index.html'),
+      favicon: './src/favicon.png',
     }),
   ],
 
@@ -34,6 +35,12 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: { cacheDirectory: process.env.NODE_ENV === 'development' },
+      },
+      {
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: 'url-loader',
+        },
       },
       {
         test: /\.s[ac]ss$/i,

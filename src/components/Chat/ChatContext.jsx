@@ -5,6 +5,4 @@ export const ChatContext = createContext({
   setMessages: () => {},
   text: '',
   setText: () => {},
-  suggestions: [],
-  setSuggestions: () => {},
 });

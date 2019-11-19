@@ -1,22 +1,19 @@
+import './Message.scss';
 import React from 'react';
-import PropTypes from 'prop-types';
-import MessageStyles from './Message.css';
 
-export function Message({ text, date }) {
+export function Message({ data: messageData }) {
+  const { text, isUsers, date } = messageData;
+  let messageClass = 'message';
+  if (isUsers) {
+    messageClass += ' user';
+  }
+  const dateTxt = `${date.getHours() + 1}:${date.getMinutes() + 1}`;
   return (
-    <div className={MessageStyles.message}>
-      <span className={MessageStyles.text}>{text}</span>
-      <span className={MessageStyles.date}>{date}</span>
+    <div className={messageClass}>
+      <div className="content">
+        <span className="content-text">{text}</span>
+        <span className="date">{dateTxt}</span>
+      </div>
     </div>
   );
 }
-
-Message.propTypes = {
-  text: PropTypes.string,
-  date: PropTypes.instanceOf(Date),
-};
-
-Message.defaultProps = {
-  text: true,
-  date: true,
-};
