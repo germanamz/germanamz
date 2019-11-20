@@ -6,7 +6,14 @@ import { Message } from './Message/Message';
 export function MessageArea() {
   const render = ({ messages }) => (
     <div className="message-area">
-      {messages.map(message => <Message key={message.id} data={message} />)}
+      {messages.map((message, index) => {
+        const nextMessage = messages[index + 1];
+        let showArrow = true;
+        if (nextMessage) {
+          showArrow = nextMessage.isUsers !== message.isUsers;
+        }
+        return <Message key={message.id} data={message} showArrow={showArrow} />;
+      })}
     </div>
   );
   return (

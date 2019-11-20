@@ -1,9 +1,12 @@
 import './Message.scss';
 import React from 'react';
 
-export function Message({ data: messageData }) {
+export function Message({ data: messageData, showArrow }) {
   const { text, isUsers, date } = messageData;
   let messageClass = 'message';
+  if (showArrow) {
+    messageClass += ' show-arrow';
+  }
   if (isUsers) {
     messageClass += ' user';
   }
