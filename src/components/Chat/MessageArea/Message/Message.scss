@@ -5,16 +5,20 @@
   align-items: flex-start;
   padding: 0 5px;
 
+  &.loading .content .content-text {
+    padding: 0;
+  }
+
+  .date {
+    float: right;
+    margin-top: 5px;
+  }
+
   &.user {
     align-items: flex-end;
 
     .content {
       background: #c1d2e2;
-
-      .date {
-        float: right;
-        margin-top: 5px;
-      }
     }
   }
 
@@ -39,6 +43,7 @@
 
   &.show-arrow {
     position: relative;
+    margin-bottom: 20px;
 
     &::before {
       content: " ";

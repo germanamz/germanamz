@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { queue } from 'async';
 import './Chat.scss';
 import { MessageArea } from './MessageArea/MessageArea';
 import { ChatContext } from './ChatContext';
@@ -12,31 +13,60 @@ export class Chat extends React.Component {
     const messages = [];
     this.state = { messages };
     this.messagesCount = 0;
+    this.botQueue = queue(({ text, data }, next) => {
+      setTimeout(() => {
+        this.addMessage(text, data, false);
+        next();
+      }, 800);
+    });
+    this.botQueue.drain(() => {
+      this.botIsWriting = false;
+      this.setState({ botIsWriting: false });
+    });
 
     this.ctx = {
       messages,
       addMessage: this.addMessage.bind(this),
+      addBotMessage: this.addBotMessage.bind(this),
+      botIsWriting: () => this.botIsWriting,
     };
   }
 
   componentDidMount() {
-    this.addMessage('Hi!');
-    this.addMessage('I\'m German\'s bot!');
-    this.addMessage('How may i help you?');
+    this.addBotMessage('Hi!');
+    this.addBotMessage('I\'m German\'s bot!');
+    this.addBotMessage('Sorry to tell you!');
+    this.addBotMessage('But this bot still is under construction. 👨🏻‍💻');
+    this.addBotMessage('If you\'d like to read some more about me, you can down load my info as PDF right [here](https://germanamz.com/cv.pdf)');
   }
 
-  addMessage(messageText, isUsers, data) {
+  addBotMessage(text, data) {
+    this.setState(() => {
+      this.botQueue.push({ text, data });
+      this.botIsWriting = true;
+      return { botIsWriting: true };
+    });
+  }
+
+  addMessage(messageText, messageData, isUser = false, showDate = true) {
+    let data = messageData;
+    let text = messageText;
+    if (typeof messageText === 'object') {
+      data = messageText;
+      text = '';
+    }
     const message = {
-      text: messageText,
+      text,
       data,
       date: new Date(),
-      isUsers,
+      isUser,
+      showDate,
       id: this.messagesCount,
     };
     this.messagesCount += 1;
     this.setState(({ messages }) => {
       messages.push(message);
-      return messages;
+      return { messages };
     });
   }
 
