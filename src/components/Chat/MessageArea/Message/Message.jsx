@@ -1,7 +1,6 @@
 import './Message.scss';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAtom } from '@fortawesome/free-solid-svg-icons';
+import parseText from './parseText';
 
 export function Message({ data: messageData, showArrow }) {
   const {
@@ -11,7 +10,7 @@ export function Message({ data: messageData, showArrow }) {
     date,
     data = {},
   } = messageData;
-  const { loading } = data;
+  const dngHtml = { __html: parseText(text) };
   let messageClass = 'message';
   if (showArrow) {
     messageClass += ' show-arrow';
@@ -19,16 +18,12 @@ export function Message({ data: messageData, showArrow }) {
   if (isUser) {
     messageClass += ' user';
   }
-  if (loading) {
-    messageClass += ' loading';
-  }
   const dateTxt = `${date.getHours() + 1}:${date.getMinutes() + 1}`;
   return (
     <div className={messageClass}>
       <div className="content">
-        <span className="content-text">{text}</span>
+        <span className="content-text" dangerouslySetInnerHTML={dngHtml}></span>
         {showDate ? <span className="date">{dateTxt}</span> : null}
-        {loading ? <FontAwesomeIcon icon={faAtom} spin /> : null}
       </div>
     </div>
   );
