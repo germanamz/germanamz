@@ -6,11 +6,23 @@
   background-size: contain;
   background-repeat: no-repeat;
   .top-bar {
+    padding: 25px;
+    display: flex;
+    flex-direction: row;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     height: 50px;
     z-index: 1;
+    & > * {
+      margin-right: 25px;
+    }
+    .chat-with {
+      color: rgba(191, 198, 220, 0.61);
+    }
+    .fill {
+      flex-grow: 1;
+    }
   }
 }

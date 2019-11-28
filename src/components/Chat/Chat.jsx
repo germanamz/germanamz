@@ -11,13 +11,13 @@ export class Chat extends React.Component {
     super(props);
 
     const messages = [];
-    this.state = { messages };
+    this.state = { messages, botIsWriting: false };
     this.messagesCount = 0;
     this.botQueue = queue(({ text, data }, next) => {
       setTimeout(() => {
         this.addMessage(text, data, false);
         next();
-      }, 800);
+      }, text.length * 40);
     });
     this.botQueue.drain(() => {
       this.botIsWriting = false;
@@ -34,10 +34,11 @@ export class Chat extends React.Component {
 
   componentDidMount() {
     this.addBotMessage('Hi!');
-    this.addBotMessage('I\'m German\'s bot!');
-    this.addBotMessage('Sorry to tell you!');
-    this.addBotMessage('But this bot still is under construction. 👨🏻‍💻');
-    this.addBotMessage('If you\'d like to read some more about me, you can down load my info as PDF right [here](https://germanamz.com/cv.pdf)');
+    this.addBotMessage('I\'m German');
+    this.addBotMessage('Sorry to tell you,');
+    this.addBotMessage('But i\'m still teaching this bot how to speak with you.');
+    this.addBotMessage('If you\'d like to read some more about me, you can download my info as PDF from [pdf.germanamz.com](https://pdf.germanamz.com)');
+    this.addBotMessage('Also you can zoom in on the solar system <==== ;)');
   }
 
   addBotMessage(text, data) {
@@ -71,9 +72,18 @@ export class Chat extends React.Component {
   }
 
   render() {
+    const { botIsWriting } = this.state;
+    let typingClass = 'typing';
+    if (botIsWriting) {
+      typingClass += ' visible';
+    }
     return (
       <ChatContext.Provider value={this.ctx}>
         <div className="chat">
+          <div className="chat-bot-name-wrapper">
+            <span className="chat-bot-name">German Meza</span>
+            <span className={typingClass}>Typing...</span>
+          </div>
           <MessageArea />
           <SuggestionBar />
           <Field />

@@ -10,8 +10,10 @@ export function Field() {
   const render = ({ addMessage }) => {
     const onSubmit = (event) => {
       event.preventDefault();
-      addMessage(text, {}, true);
-      setText('');
+      if (text && text.length) {
+        addMessage(text, {}, true);
+        setText('');
+      }
     };
     let inputRef;
     const getInputRef = (iRef) => { inputRef = iRef; };

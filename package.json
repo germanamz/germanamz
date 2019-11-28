@@ -10,14 +10,14 @@
     "start": "node server/server.js",
     "start:dashboard": "webpack-dashboard node server/server.js",
     "postinstall": "npm run build",
-    "build": "webpack --config webpack/webpack.prod.config.js",
+    "build": "rm -rf build && webpack --config webpack/webpack.prod.config.js",
     "clean": "rm -rf build",
     "lint": "eslint src --ext .js,.jsx",
     "format:check": "prettier --check {server,src,webpack}/**/*.{js,jsx,json,css,html}",
     "format": "prettier --write {server,src,webpack}/**/*.{js,jsx,json,css,html}",
     "test": "jest"
   },
-  "author": "Michał Załęcki <michal@michalzalecki.com>",
+  "author": "German Meza <iam@germanamz.com>",
   "license": "MIT",
   "jest": {
     "moduleNameMapper": {

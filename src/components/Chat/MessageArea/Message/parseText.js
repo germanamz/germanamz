@@ -9,7 +9,7 @@ function replaceLinks(text) {
   const linkGPattern = /\[(.+)]\((.+)\)/g;
   const linkPattern = /\[(.+)]\((.+)\)/;
   const linkMatches = text.match(linkGPattern) || [];
-  return linkMatches.reduce((v, link) => v.replace(link, link.replace(linkPattern, '<a href="$2">$1</a>')), text);
+  return linkMatches.reduce((v, link) => v.replace(link, link.replace(linkPattern, '<a href="$2" target="_blank">$1</a>')), text);
 }
 
 module.exports = function parseText(text) {

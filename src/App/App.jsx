@@ -2,24 +2,23 @@ import './App.scss';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  matchPath, Link,
+  Redirect, HashRouter,
 } from 'react-router-dom';
 import { Info } from './Info/Info';
 import { Home } from './Home/Home';
+import { SolarSystem } from '../components/SolarSystem/SolarSystem';
 
 export function App() {
   return (
-    <Router>
+    <HashRouter>
       <div className="app">
         <div className="top-bar">
-          <button type="button">Left button</button>
-          <Link to="/info">Info</Link>
-          <Link to="/">Home</Link>
+          <span className="chat-with">&#62;_ Chat with gBot...</span>
+          <span className="fill" />
         </div>
+        <SolarSystem />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/info" component={Info} />
@@ -28,7 +27,7 @@ export function App() {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 

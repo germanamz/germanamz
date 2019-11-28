@@ -7,14 +7,16 @@ export function MessageArea() {
   const { messages } = useContext(ChatContext);
   return (
     <div className="message-area">
-      {messages.map((message, index) => {
-        const nextMessage = messages[index + 1];
-        let showArrow = true;
-        if (nextMessage) {
-          showArrow = nextMessage.isUser !== message.isUser;
-        }
-        return <Message key={message.id} data={message} showArrow={showArrow} />;
-      })}
+      <div className="messages-wrapper">
+        {messages.map((message, index) => {
+          const nextMessage = messages[index + 1];
+          let showArrow = true;
+          if (nextMessage) {
+            showArrow = nextMessage.isUser !== message.isUser;
+          }
+          return <Message key={message.id} data={message} showArrow={showArrow} />;
+        })}
+      </div>
     </div>
   );
 }

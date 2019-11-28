@@ -13,7 +13,7 @@ module.exports = {
     path: path.resolve('build'),
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    publicPath: '/',
+    publicPath: './',
   },
 
   resolve: {

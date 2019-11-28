@@ -2,5 +2,10 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 25px;
+  padding: 10px 25px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
 }

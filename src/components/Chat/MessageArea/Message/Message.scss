@@ -53,10 +53,10 @@
       left: -4px;
       border-right: solid 10px #9dbfe0;
       border-left: none;
-      border-bottom: solid 5px;
+      border-bottom: solid 5px transparent;
       height: 0;
       width: 0;
-      border-top: solid 5px;
+      border-top: solid 5px transparent;
     }
 
     &.user::before {
