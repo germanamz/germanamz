@@ -16,7 +16,7 @@ const Home: NextPage = () => (
       <OpenCard
         title="Check my photo gallery"
         href="/gallery"
-        description="As I try to be an amateur photographer of the wild, cities ans life moments. This is just the set of my photos I like the most."
+        description="As I try to be an amateur photographer of the wild, cities and life moments. This is just the set of my photos I like the most."
       />
       <div className="w-1/12" />
     </div>
