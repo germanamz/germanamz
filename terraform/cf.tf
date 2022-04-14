@@ -9,17 +9,13 @@ data "aws_acm_certificate" "cert" {
   statuses = ["ISSUED"]
 }
 
-data "aws_s3_bucket" "logging" {
-  bucket = var.logs_bucket
-}
-
 resource "aws_cloudfront_distribution" "static_content" {
   enabled = true
   aliases = [local.domain]
 
   logging_config {
-    bucket = data.aws_s3_bucket.logging.bucket_domain_name
-    prefix = "germanamz_com-cf"
+    bucket = aws_s3_bucket.logs.bucket_domain_name
+    prefix = "cf/"
   }
 
   origin {

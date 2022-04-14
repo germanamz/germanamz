@@ -12,10 +12,6 @@ variable "artifacts_bucket" {
   type = string
 }
 
-variable "logs_bucket" {
-  type = string
-}
-
 data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}

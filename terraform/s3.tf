@@ -45,3 +45,26 @@ resource "aws_s3_bucket_website_configuration" "redirection" {
     protocol  = "https"
   }
 }
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "${local.domain}-cf-logs"
+}
+
+resource "aws_s3_bucket_acl" "logs" {
+  bucket = aws_s3_bucket.logs.id
+  acl    = "log-delivery-write"
+}
+
+resource "aws_s3_bucket_ownership_controls" "logs" {
+  bucket = aws_s3_bucket.logs.bucket
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_logging" "example" {
+  bucket = aws_s3_bucket.logs.id
+
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = ""
+}
