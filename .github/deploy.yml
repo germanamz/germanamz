@@ -41,7 +41,7 @@ jobs:
     working-directory: terraform
     steps:
       - run: terraform init -backend-config="bucket=${{ secrets.TFSTATES_BUCKET }}"
-      - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}" -var="logs_bucket=${{ secrets.LOGS_BUCKET }}"
+      - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}"
 
   static:
     runs-on: ubuntu-latest
