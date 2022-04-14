@@ -1,0 +1,41 @@
+.layout {
+  @apply prose-sm flex flex-col items-center w-full min-w-full p-6;
+
+  .wrapper {
+    @apply w-full xl:w-[1200px] flex flex-col gap-4;
+
+    .profile {
+      @apply grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8;
+
+      @media print {
+        & {
+          @apply grid-cols-2;
+        }
+      }
+
+      * {
+        @apply leading-tight;
+      }
+
+      h2 {
+        @apply mt-0;
+      }
+
+      .profilePhoto {
+        @apply grow hidden md:block md:max-h-[400px];
+        overflow: hidden;
+
+        img {
+          @apply w-full;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .profileContent {
+        @apply border-b border-b-current border-dotted;
+      }
+    }
+  }
+}

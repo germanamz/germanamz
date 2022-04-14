@@ -1,17 +1,25 @@
-import { enableStaticRendering } from 'mobx-react';
-import { Context, createContext } from 'react';
+import { configureStore } from '@reduxjs/toolkit';
+import { merge } from 'lodash';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
-import { factory as rootStoreFactory, RootStore } from './RootStore';
+import reducer from './reducer';
+import { NewsState } from './slices/news';
 
-enableStaticRendering(typeof window === 'undefined');
-
-const RootStoreContext: Context<RootStore> = createContext<any>(null);
-
-export type {
-  RootStore
+export type RootState = {
+  news: NewsState,
 };
 
-export {
-  RootStoreContext,
-  rootStoreFactory
-};
+const makeStore = () => configureStore<RootState>({
+  reducer: (state, action) => {
+    switch (action.type) {
+      case HYDRATE:
+        return merge({}, state, action.payload);
+      default:
+        return reducer(state, action);
+    }
+  },
+});
+
+const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });
+
+export default wrapper;

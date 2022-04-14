@@ -1,0 +1,9 @@
+.profileSkills {
+  @apply border border-dashed flex flex-col;
+  .profileSkill {
+    @apply flex flex-grow border-dashed border-b items-center p-2 md:p-0 md:pl-3 xl:pl-4 text-xs gap-4;
+    &:last-child {
+      @apply border-0;
+    }
+  }
+}

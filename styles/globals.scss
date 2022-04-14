@@ -3,7 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
+@media print {
+  html {
+    font-size: 14px;
+  }
+}
 
 @layer base {
   :root {

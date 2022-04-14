@@ -1,0 +1,41 @@
+.projectsRoot {
+  .projectsProjectTitle {
+    @apply mt-0;
+  }
+
+  .projectsWrapper {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+
+    @media print {
+      & {
+        @apply block;
+        .projectsProject {
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+
+    .projectsProject {
+      @apply border-b border-solid py-2;
+
+      * {
+        @apply leading-tight;
+        text-align: justify;
+        page-break-inside: avoid;
+      }
+
+      .projectsProjectTimeRange {
+        @apply text-xs font-thin;
+      }
+      .projectsProjectTitle {
+        @apply m-0 font-bold;
+      }
+      .projectsProjectTechnologies {
+        @apply text-sm font-thin my-2;
+        text-transform: capitalize;
+      }
+      .projectsProjectDescription {}
+    }
+  }
+}

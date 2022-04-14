@@ -41,3 +41,7 @@ yarn-error.log*
 
 # IDE
 .idea
+
+*.tfbackend
+.terraform*
+.terraform/

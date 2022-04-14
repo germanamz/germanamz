@@ -1,0 +1,50 @@
+@use "sass:math";
+
+.newsRowRoot {
+  @media print {
+    & {
+      display: none;
+    }
+  }
+
+  .newsRow {
+    @apply w-full border-b border-t border-b-current border-dotted overflow-x-hidden;
+
+    .itemsWrapper {
+      @apply relative;
+      white-space: nowrap;
+
+      &.itemExit {
+        transition: transform 2s ease-in-out;
+        transform: translateX(-300px);
+      }
+
+      .item {
+        @apply inline-block md:pr-3 xl:pr-4 w-[300px] min-w-[300px] max-w-[300px];
+
+        &:hover {
+          .itemTitle {
+            @apply underline;
+          }
+
+          .itemSubtitle {
+            @apply underline;
+          }
+        }
+
+        .itemTitle {
+          @apply text-xs truncate text-ellipsis;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .itemSubtitle {
+          @apply flex gap-1 items-center text-gray-400;
+          font-size: 0.60rem;
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+name: build-and-deploy
+on:
+  release:
+    types: [published]
+env:
+  NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
+  TWITTER_KEY: ${{ secrets.TWITTER_KEY }}
+  TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
+  TWITTER_BREARER: ${{ secrets.TWITTER_BREARER }}
+  ARTIFACTS_BUCKET: ${{ secrets.ARTIFACTS_BUCKET }}
+  APP_BUCKET: ${{ secrets.APP_BUCKET }}
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - uses: hashicorp/setup-terraform@v1.4.0
+      - run: echo "APP_VERSION=$(date +\"%m%d%Y%H%M%S\")" >> $GITHUB_ENV
+      - run: npm install -g yarn
+      - run: npm install -g zx
+      - run: yarn
+
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - run: yarn build
+
+  publish-artifact:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: ./scripts/publish.lambdas.sh
+
+  tf:
+    runs-on: ubuntu-latest
+    needs: publish-artifact
+    working-directory: terraform
+    steps:
+      - run: terraform init -backend-config="bucket=${{ secrets.TFSTATES_BUCKET }}"
+      - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}" -var="logs_bucket=${{ secrets.LOGS_BUCKET }}"
+
+  static:
+    runs-on: ubuntu-latest
+    needs: tf
+    steps:
+      - run: ./scripts/publish.static.sh
