@@ -1,0 +1,23 @@
+.printBtn {
+  @apply fixed;
+  z-index: 1000;
+  right: 1rem;
+
+  &:not(.topRight) {
+    bottom: 1rem;
+  }
+
+  &.topRight {
+    top: 1rem;
+  }
+
+  @media print {
+    & {
+      display: none;
+    }
+  }
+
+  .printBtnButton {
+    @apply btn glass;
+  }
+}
