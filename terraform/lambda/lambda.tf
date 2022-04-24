@@ -5,7 +5,10 @@ resource "aws_iam_role" "role" {
       {
         Action    = "sts:AssumeRole",
         Principal = {
-          Service = "lambda.amazonaws.com"
+          Service = [
+            "lambda.amazonaws.com",
+            "edgelambda.amazonaws.com"
+          ]
         },
         Effect = "Allow"
       }
@@ -29,6 +32,11 @@ resource "aws_iam_role_policy" "role_policy" {
       }
     ], var.statements)
   })
+}
+
+resource "aws_cloudwatch_log_group" "lambda" {
+  name              = "/aws/lambda/${local.prefix}-${var.lambda_name}"
+  retention_in_days = 14
 }
 
 resource "aws_lambda_function" "lambda" {

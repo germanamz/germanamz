@@ -16,6 +16,15 @@ data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
 
+module "edge_next-image-uri" {
+  source = "./lambda"
+  lambda_name = "next-image-uri"
+  artifacts_bucket = var.artifacts_bucket
+  artifact_version = var.artifact_version
+  envs = {}
+  statements = []
+}
+
 module "lambda__error" {
   source = "./lambda"
   lambda_name = "_error"

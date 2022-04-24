@@ -15,6 +15,7 @@ const BUILD_PATH = path.resolve(__dirname, '../build');
 const LAMBDAS_BUILD_PATH = path.resolve(BUILD_PATH, './lambdas');
 const ARCHIVES_PATH = path.resolve(BUILD_PATH, './archives');
 const NEXT_PAGES_PATH = path.resolve(__dirname, '../.next/serverless/pages');
+const EDGE_PATH = path.resolve(__dirname, '../edge');
 
 const asyncPipeline = promisify(pipeline);
 
@@ -106,15 +107,29 @@ const archiveLambda = async ({ lambdaName, buildFile }) => {
   return archiveFile;
 };
 
-const build = async () => {
-  await recursiveFileWalking(NEXT_PAGES_PATH, ['.js'], async (directoryPath, filename) => {
-    const lambdaName = path.basename(filename, '.js');
+const buildLambda = async (directoryPath, filename) => {
+  const lambdaName = path.basename(filename, '.js');
 
-    const buildFile = await buildPage({
-      lambdaName,
-      directoryPath,
-      filename,
-    });
+  const buildFile = await buildPage({
+    lambdaName,
+    directoryPath,
+    filename,
+  });
+
+  await archiveLambda({
+    lambdaName,
+    buildFile,
+  });
+};
+
+const build = async () => {
+  await recursiveFileWalking(NEXT_PAGES_PATH, ['.js'], buildLambda);
+  await recursiveFileWalking(EDGE_PATH, ['.js'], async (directory, filename) => {
+    const lambdaName = path.basename(filename, '.js');
+    const buildFile = path.join(directory, filename);
+
+    await memfs.promises.mkdir(directory, { recursive: true });
+    await asyncPipeline(fs.createReadStream(buildFile), memfs.createWriteStream(buildFile));
 
     await archiveLambda({
       lambdaName,

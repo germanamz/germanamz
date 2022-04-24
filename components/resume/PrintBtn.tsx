@@ -23,7 +23,6 @@ const PrintBtn: FC = () => {
     };
   }, []);
 
-  console.log(isTopRight);
   return (
     <div className={classNames(styles.printBtn, {
       [styles.topRight]: isTopRight,

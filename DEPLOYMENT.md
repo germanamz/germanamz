@@ -27,6 +27,7 @@ export APP_BUCKET=<webpage_bucket_name>
 4. Run:
 ```shell
 cd terraform
+terraform init -backend-config="bucket=<tf_states_bucket>"
 terraform apply -var="artifacts_bucket=$ARTIFACTS_BUCKET" -var="artifact_version=$APP_VERSION"
 # Not that if you didnt export this variables replace them with the actual bucket names
 ```
