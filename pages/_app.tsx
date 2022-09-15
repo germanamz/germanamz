@@ -15,6 +15,7 @@ const MyApp = wrapper.withRedux(({ Component, pageProps }: AppProps) => (
     <Gtm />
     <Head>
       <title>German Meza</title>
+      <link rel="shortcut icon" href="/favicon.png" />
     </Head>
     <Component {...pageProps} />
   </>
