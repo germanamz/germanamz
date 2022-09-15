@@ -14,7 +14,7 @@ const MyApp = wrapper.withRedux(({ Component, pageProps }: AppProps) => (
   <>
     <Gtm />
     <Head>
-      <title>Portfolio: German Meza</title>
+      <title>German Meza</title>
     </Head>
     <Component {...pageProps} />
   </>

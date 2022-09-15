@@ -25,6 +25,12 @@
         @apply grow hidden md:block md:max-h-[400px];
         overflow: hidden;
 
+        @media print {
+          & {
+            display: none;
+          }
+        }
+
         img {
           @apply w-full;
           position: relative;

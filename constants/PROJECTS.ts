@@ -1,5 +1,8 @@
 import Project from '../types/Project';
 
+/**
+ * For legacy reference
+ */
 const PROJECTS: Project[] = [
   {
     title: 'Bramble (Though X-Team, Software developer)',

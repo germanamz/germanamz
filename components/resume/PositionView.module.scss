@@ -1,0 +1,77 @@
+.positionRoot {
+  $root: &;
+  @apply border-b border-solid py-4;
+
+  @media print {
+    & {
+      page-break-after: always;
+    }
+  }
+
+  &.twoRoot {
+    @apply md:col-span-3;
+  }
+
+  &.threeRoot {
+    @apply md:col-span-3;
+  }
+
+  * {
+    @apply leading-tight;
+    text-align: justify;
+    page-break-inside: avoid;
+  }
+
+  .timeRange {
+    @apply text-xs font-light;
+  }
+
+  .companyName {
+    @apply m-0 font-bold;
+  }
+
+  .title {
+    @apply m-0 italic text-sm;
+  }
+
+  .technologies {
+    @apply text-xs font-extralight mb-2 tracking-tight leading-4 italic;
+    text-transform: capitalize;
+  }
+
+  .description {
+    @apply my-0.5 font-thin text-xs leading-3;
+  }
+
+  .projectsTitleWrapper {
+    @apply mt-3 mb-1;
+
+    .projectsTitle {
+      @apply p-1 border-dashed border-t border-x w-auto underline;
+    }
+  }
+
+  .projects {
+    @apply p-1 border border-dashed flex flex-col;
+
+    .project {
+      @apply border-b border-dashed p-1;
+
+      .projectTitle {
+        @apply font-light mb-1;
+      }
+
+      .projectRange {
+        @apply text-xs font-extralight mb-1;
+      }
+
+      .projectDescription {
+        @apply font-extralight text-xs;
+      }
+
+      &:last-child {
+        @apply border-b-0;
+      }
+    }
+  }
+}
