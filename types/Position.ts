@@ -3,6 +3,8 @@ type Position = {
   companyName: string;
   technologies?: string[];
   description?: string;
+  bulletPoints?: string[];
+  isCurrent?: boolean;
   projects?: Omit<Position, 'projects' | 'companyName'>[];
   from?: Date;
   to?: Date;

@@ -1,4 +1,3 @@
-import { nanoid } from '@reduxjs/toolkit';
 import format from 'date-fns/format';
 import { union } from 'lodash';
 import { FC } from 'react';
@@ -32,22 +31,10 @@ const PositionView: FC<PositionViewProps> = ({ position }) => {
       <div className={styles.timeRange}>{getFormatedDateRange(position.from, position.to)}</div>
       {technologies?.length && (<div className={styles.technologies}>{technologies.join(', ')}</div>)}
       {position.description && (<p className={styles.description}>{position.description}</p>)}
-      {position.projects?.length && (
-        <>
-          <div className={styles.projectsTitleWrapper}>
-            <span className={styles.projectsTitle}>Projects</span>
-          </div>
-          <div className={styles.projects}>
-            {position.projects.map((item) => (
-              <div className={styles.project} key={nanoid()}>
-                <div className={styles.projectTitle}>{item.title}</div>
-                <div className={styles.projectRange}>{getFormatedDateRange(item.from, item.to)}</div>
-                {item.technologies?.length && (<div className={styles.technologies}>{item.technologies.join(', ')}</div>)}
-                <div className={styles.projectDescription}>{item.description}</div>
-              </div>
-            ))}
-          </div>
-        </>
+      {position.bulletPoints && (
+        <ul className="list-disc">
+          {position.bulletPoints.map((point) => (<li>{point}</li>))}
+        </ul>
       )}
     </div>
   );

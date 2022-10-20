@@ -8,6 +8,7 @@ import Experience from '../components/resume/Experience';
 import NewsRow from '../components/resume/NewsRow';
 import PrintBtn from '../components/resume/PrintBtn';
 import Skills from '../components/resume/Skills';
+import Technologies from '../components/resume/Technologies';
 import EXPERIENCE from '../constants/EXPERIENCE';
 import fetchTweetsAsNews from '../helpers/fetchTweetsAsNews';
 import fetchYcomBestStoriesAsNews from '../helpers/fetchYcomBestStoriesAsNews';
@@ -62,6 +63,7 @@ const Index: NextPage = () => (
           </div>
           <Skills />
         </div>
+        <Technologies />
         <Experience items={EXPERIENCE} />
         <NewsRow id="ycomBestNews" label="Recent Ycombinator hacker news"
                  preSubtitle={<FontAwesomeIcon icon={faYCombinator} color="#f26625" />} />
