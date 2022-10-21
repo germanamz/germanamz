@@ -1,3 +1,5 @@
+
+_Before you deploy manually... The simplest way for deploying is to create a new tag on GitHub and an action will be triggered performing all the steps described in here._
 # Deployment instructions
 
 To deploy the application manually, run the following commands in the same order.
