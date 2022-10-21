@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import { union } from 'lodash';
+import { union, uniqueId } from 'lodash';
 import { FC } from 'react';
 
 import Position from '../../types/Position';
@@ -33,7 +33,7 @@ const PositionView: FC<PositionViewProps> = ({ position }) => {
       {position.description && (<p className={styles.description}>{position.description}</p>)}
       {position.bulletPoints && (
         <ul className="list-disc">
-          {position.bulletPoints.map((point) => (<li>{point}</li>))}
+          {position.bulletPoints.map((point) => (<li key={uniqueId()}>{point}</li>))}
         </ul>
       )}
     </div>
