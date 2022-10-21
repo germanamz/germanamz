@@ -5,7 +5,7 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    environment:
+    env:
       NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
       TWITTER_KEY: ${{ secrets.TWITTER_KEY }}
       TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
@@ -26,11 +26,11 @@ jobs:
       - run: npm install -g zx
       - run: yarn
       - run: yarn build
-      - run: ./scripts/publish.artifact.mjs
-      - run: cd terraform
+      - run: zx ./scripts/publish.artifact.mjs
       - run: terraform init -backend-config="bucket=${{ secrets.TFSTATES_BUCKET }}"
+        working-directory: terraform
       - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}"
-      - run: cd ..
-      - run: ./scripts/deploy.mjs
+        working-directory: terraform
+      - run: zx ./scripts/deploy.mjs
       - run: aws cloudfront create-invalidation --distribution-id="${{ secrets.CF_DISTRIBUTION_ID }}" --paths="/*"
 
