@@ -39,7 +39,9 @@ module "lambda_index" {
   lambda_name = "index"
   artifacts_bucket = var.artifacts_bucket
   artifact_version = var.artifact_version
-  envs = {}
+  envs = {
+    TWITTER_BEARER = var.twitter_bearer
+  }
   statements = []
 }
 

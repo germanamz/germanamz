@@ -9,7 +9,7 @@ jobs:
       NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
       TWITTER_KEY: ${{ secrets.TWITTER_KEY }}
       TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
-      TWITTER_BREARER: ${{ secrets.TWITTER_BREARER }}
+      TWITTER_BEARER: ${{ secrets.TWITTER_BEARER }}
       ARTIFACTS_BUCKET: ${{ secrets.ARTIFACTS_BUCKET }}
       APP_BUCKET: ${{ secrets.APP_BUCKET }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -29,7 +29,7 @@ jobs:
       - run: zx ./scripts/publish.artifact.mjs
       - run: terraform init -backend-config="bucket=${{ secrets.TFSTATES_BUCKET }}"
         working-directory: terraform
-      - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}"
+      - run: terraform apply -auto-approve -var="artifact_version=$APP_VERSION" -var="artifacts_bucket=${{ secrets.ARTIFACTS_BUCKET }}" -var="${{ secrets.TWITTER_BEARER }}"
         working-directory: terraform
       - run: zx ./scripts/deploy.mjs
       - run: aws cloudfront create-invalidation --distribution-id="${{ secrets.CF_DISTRIBUTION_ID }}" --paths="/*"

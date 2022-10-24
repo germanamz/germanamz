@@ -30,7 +30,7 @@ type ApiRes = {
 const fetchTweetsAsNews = async (query: string): Promise<News[]> => {
   try {
     const headers = new Headers({
-      Authorization: `Bearer ${process.env.TWITTER_BREARER}`,
+      Authorization: `Bearer ${process.env.TWITTER_BEARER}`,
     });
     const res = await fetch(`https://api.twitter.com/2/tweets/search/recent?query=${query}&expansions=author_id&max_results=20`, {
       method: 'GET',

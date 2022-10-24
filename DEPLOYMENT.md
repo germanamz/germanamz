@@ -30,7 +30,8 @@ export APP_BUCKET=<webpage_bucket_name>
 ```shell
 cd terraform
 terraform init -backend-config="bucket=<tf_states_bucket>"
-terraform apply -var="artifacts_bucket=$ARTIFACTS_BUCKET" -var="artifact_version=$APP_VERSION"
+terraform apply -var="artifacts_bucket=$ARTIFACTS_BUCKET" -var="artifact_version=$APP_VERSION" -var="twitter_bearer=<token>"
+# Replace `token` with the actual twitter token
 # Not that if you didnt export this variables replace them with the actual bucket names
 ```
 5. Run:
