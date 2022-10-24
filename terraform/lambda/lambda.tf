@@ -45,7 +45,7 @@ resource "aws_lambda_function" "lambda" {
   handler          = "index.handler"
   s3_bucket        = var.artifacts_bucket
   s3_key           = data.aws_s3_object.artifact.key
-  runtime          = "nodejs16.x"
+  runtime          = "nodejs14.x"
   publish          = true
   source_code_hash = data.aws_s3_object.artifact_checksum.body
 
