@@ -2,12 +2,6 @@
   $root: &;
   @apply border-b border-solid py-4;
 
-  @media print {
-    & {
-      page-break-after: always;
-    }
-  }
-
   &.twoRoot {
     @apply md:col-span-3;
   }
