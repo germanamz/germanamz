@@ -1,4 +1,4 @@
-import { faTwitter, faYCombinator } from '@fortawesome/free-brands-svg-icons';
+import { faYCombinator } from '@fortawesome/free-brands-svg-icons';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
@@ -10,7 +10,6 @@ import PrintBtn from '../components/resume/PrintBtn';
 import Skills from '../components/resume/Skills';
 import Technologies from '../components/resume/Technologies';
 import EXPERIENCE from '../constants/EXPERIENCE';
-import fetchTweetsAsNews from '../helpers/fetchTweetsAsNews';
 import fetchYcomBestStoriesAsNews from '../helpers/fetchYcomBestStoriesAsNews';
 import meJpg from '../public/me.jpg';
 import wrapper from '../store';
@@ -22,8 +21,8 @@ const Index: NextPage = () => (
     <PrintBtn />
     <div className={styles.layout}>
       <div className={styles.wrapper}>
-        <NewsRow id="tweets" label="Recent tweets about web development"
-                 preSubtitle={<FontAwesomeIcon icon={faTwitter} color="#00acee" />} />
+        <NewsRow id="ycomBestNews" label="Recent Ycombinator hacker news"
+                 preSubtitle={<FontAwesomeIcon icon={faYCombinator} color="#f26625" />} />
         <div className={styles.profile}>
           <div className={styles.profilePhoto}>
             <Image src={meJpg} alt="Selfie" />
@@ -65,18 +64,15 @@ const Index: NextPage = () => (
         </div>
         <Technologies />
         <Experience items={EXPERIENCE} />
-        <NewsRow id="ycomBestNews" label="Recent Ycombinator hacker news"
-                 preSubtitle={<FontAwesomeIcon icon={faYCombinator} color="#f26625" />} />
       </div>
     </div>
   </>
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-  const news = await Promise.all([fetchTweetsAsNews('(javascript OR web OR development OR react) lang:en'), fetchYcomBestStoriesAsNews(20)]);
+  const news = await Promise.all([fetchYcomBestStoriesAsNews(20)]);
 
-  store.dispatch(setNews('tweets', news[0]));
-  store.dispatch(setNews('ycomBestNews', news[1]));
+  store.dispatch(setNews('ycomBestNews', news[0]));
 
   return { props: {} };
 });

@@ -13,7 +13,7 @@ const EXPERIENCE: Position[] = [
     ],
     isCurrent: true,
     from: new Date(2021, 9),
-    technologies: ['Hapi.js', 'React', 'AWS', 'AWS Lambda', 'Nodejs', 'Postgres', 'Docker', 'Lit Element', 'AWS', 'WebRTC', 'Mediasoup', 'Nodejs', 'Firebase', 'EC2', 'PixiJs'],
+    technologies: ['Temporal', 'vue.js', 'Go Lang', 'Hapi.js', 'React', 'AWS', 'AWS Lambda', 'Nodejs', 'Postgres', 'Docker', 'Lit Element', 'AWS', 'WebRTC', 'Mediasoup', 'Nodejs', 'Firebase', 'EC2', 'PixiJs'],
   },
   {
     companyName: 'ConsumerTrack inc',
