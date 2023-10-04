@@ -1,6 +1,6 @@
 .positionRoot {
   $root: &;
-  @apply border-b border-solid py-4;
+  @apply border-b border-solid py-2 break-inside-avoid;
 
   &.twoRoot {
     @apply md:col-span-3;

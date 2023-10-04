@@ -1,5 +1,5 @@
 const MY_SKILLS = [
-  'Scrum development',
+  'Agile development',
   'Remote experience',
   'Client interaction',
   'Data analysis',
@@ -10,6 +10,7 @@ const MY_SKILLS = [
   'Problem solving',
   'Writing and verbal communication',
   'Detail oriented',
+  'Proficient',
 ];
 
 export default MY_SKILLS;

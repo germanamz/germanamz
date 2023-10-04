@@ -4,10 +4,10 @@ import EXPERIENCE from '../../constants/EXPERIENCE';
 
 const Technologies = () => (
   <>
-    <h3 className="mt-0">Technologies</h3>
+    <span className="text-lg font-[400]">Technologies</span>
     <div className="flex flex-row flex-wrap gap-1">
       {uniq(flatten(EXPERIENCE.map(({ technologies }) => technologies))).map((tech) => (
-        <span className="badge badge-sm" key={uniqueId()}>{tech}</span>
+        <span className="badge badge-sm px-0.5" key={uniqueId()}>{tech}</span>
       ))}
     </div>
   </>

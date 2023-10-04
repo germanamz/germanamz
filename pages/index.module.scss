@@ -2,10 +2,10 @@
   @apply prose-sm flex flex-col items-center w-full min-w-full p-6;
 
   .wrapper {
-    @apply w-full xl:w-[1200px] flex flex-col gap-4;
+    @apply w-full xl:w-[1200px] flex flex-col gap-2;
 
     .profile {
-      @apply grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8;
+      @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8;
 
       @media print {
         & {

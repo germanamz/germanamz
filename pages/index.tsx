@@ -11,7 +11,6 @@ import Skills from '../components/resume/Skills';
 import Technologies from '../components/resume/Technologies';
 import EXPERIENCE from '../constants/EXPERIENCE';
 import fetchYcomBestStoriesAsNews from '../helpers/fetchYcomBestStoriesAsNews';
-import meJpg from '../public/me.jpg';
 import wrapper from '../store';
 import { setNews } from '../store/slices/news';
 import styles from './index.module.scss';
@@ -24,9 +23,6 @@ const Index: NextPage = () => (
         <NewsRow id="ycomBestNews" label="Recent Ycombinator hacker news"
                  preSubtitle={<FontAwesomeIcon icon={faYCombinator} color="#f26625" />} />
         <div className={styles.profile}>
-          <div className={styles.profilePhoto}>
-            <Image src={meJpg} alt="Selfie" />
-          </div>
           <div className={styles.profileContent}>
             <h2>German Meza</h2>
             <div>@México, 12/04/1995</div>

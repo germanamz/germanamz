@@ -11,7 +11,7 @@ export type ExperienceProps = {
 
 const Experience: FC<ExperienceProps> = ({ items }) => (
     <div className={styles.experienceRoot}>
-      <h3 className={styles.experienceTitle}>My experience</h3>
+      <span className={styles.experienceTitle}>My experience</span>
       <div className={styles.positions}>
         {items.map((item) => (
           <PositionView key={nanoid()} position={item} />
