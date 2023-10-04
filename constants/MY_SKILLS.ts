@@ -1,6 +1,6 @@
 const MY_SKILLS = [
-  'Agile development',
-  'Remote experience',
+  'Fluent English',
+  'Agile development / Async',
   'Client interaction',
   'Data analysis',
   'Logical thinking',
