@@ -18,7 +18,7 @@ const EXPERIENCE: Position[] = [
     technologies: ['Temporal', 'vue.js', 'Go Lang', 'Hapi.js', 'React', 'AWS', 'AWS Lambda', 'Nodejs', 'Postgres', 'Docker', 'Lit Element', 'AWS', 'WebRTC', 'Mediasoup', 'Nodejs', 'Firebase', 'EC2', 'PixiJs'],
   },
   {
-    companyName: 'ConsumerTrack inc',
+    companyName: 'GOBankingRates',
     title: 'Senior Software developer',
     bulletPoints: [
       'Developed and maintained BackEnd features and microservices to enhance scalability.',
