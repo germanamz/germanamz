@@ -51,7 +51,7 @@ const EXPERIENCE: Position[] = [
   },
   {
     companyName: 'GE',
-    title: 'Senior Software Developer',
+    title: 'Software Developer',
     technologies: [
       'Javascript',
       'Nodejs',
