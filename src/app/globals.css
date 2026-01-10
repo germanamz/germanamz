@@ -30,6 +30,11 @@
     display: none;
   }
 
+  /* Hide download button */
+  .btn {
+    display: none;
+  }
+
   /* Prevent sections from breaking across pages */
   section {
     page-break-inside: avoid;

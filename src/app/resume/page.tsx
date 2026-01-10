@@ -1,12 +1,16 @@
 import Link from 'next/link';
 import { Technologies } from './_components/Technologies';
 import { resume } from './constants';
+import { DownloadButton } from './_components/DownloadButton';
 
 const ResumePage = () => {
   const technologies = Array.from(new Set(resume.experience.flatMap((experience) => experience.technologies)));
 
   return (
     <div className="prose">
+      <section className="flex justify-center">
+        <DownloadButton />
+      </section>
       <section className="flex flex-row gap-4">
         <div>
           <h2>{resume.name}</h2>
@@ -70,6 +74,9 @@ const ResumePage = () => {
             </div>
           ))}
         </div>
+      </section>
+      <section className="flex justify-center mt-4">
+        <DownloadButton />
       </section>
     </div>
   );
