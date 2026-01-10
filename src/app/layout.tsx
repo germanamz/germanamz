@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from 'next/link';
 import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa6";
 import Navigation from "@/components/Navigation";
+import { Analytics } from "@vercel/analytics/next"
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -56,6 +57,7 @@ export default function RootLayout({
             </footer>
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   );
