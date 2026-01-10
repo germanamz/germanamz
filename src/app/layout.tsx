@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${roboto.variable} antialiased p-4`}
       >
         <div className="max-w-[1000px] mt-28 mx-auto flex flex-col md:flex-row gap-14">
-          <div className="max-w-[100px] md:sticky top-28 flex flex-col gap-12">
+          <div className="max-w-[100px] flex flex-col gap-12 md:sticky md:top-28 md:self-start md:z-50">
             <div className="text-2xl font-bold text-[#37a900]">
               GM
             </div>

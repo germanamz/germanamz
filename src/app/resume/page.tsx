@@ -37,8 +37,8 @@ const ResumePage = () => {
         <div className="flex flex-col gap-4">
           {resume.education.map((education) => (
             <div className="border-b border-gray-200 pb-4" key={education.degree}>
-              <h3>{education.institution}</h3>
-              <p className="font-semibold text-muted-foreground -mt-4">{education.degree}</p>
+              <h3>{education.degree}</h3>
+              <p className="font-semibold text-muted-foreground -mt-4">{education.institution}</p>
               <p className="text-sm">{education.startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - {education.endDate?.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) || 'Present'}</p>
             </div>
           ))}
