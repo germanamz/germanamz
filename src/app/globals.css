@@ -1,26 +1,229 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media print {
+  /* Remove top margins and padding for print */
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body > div {
+    margin-top: 0 !important;
+    padding: 0 !important;
+  }
+
+  body > div > div:last-child {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide sidebar (logo and navigation) */
+  body > div > div:first-child {
+    display: none;
+  }
+
+  /* Hide footer */
+  footer {
+    display: none;
+  }
+
+  /* Prevent sections from breaking across pages */
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  /* Prevent experience container from breaking, but allow between items */
+  .flex.flex-col.gap-4 {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  /* Prevent headings from being orphaned - keep with following content */
+  h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+    page-break-before: auto;
+    orphans: 2;
+    widows: 2;
+  }
+
+  /* Keep h3 with its content - very important for experience items */
+  h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+    page-break-before: auto;
+    orphans: 2;
+    widows: 2;
+  }
+
+  /* Keep first element after h3 on same page */
+  h3 + p,
+  h3 + div {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  /* Prevent experience items from breaking - keep entire item together */
+  .border-b {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: auto;
+    display: block;
+  }
+
+  /* Ensure experience item content stays with its heading */
+  .border-b > * {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  /* Keep h3 with the border-b div that contains it */
+  h3:has(+ *) {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Prevent lists from breaking */
+  ul,
+  ol {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep list items together when possible */
+  li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Prevent paragraphs from breaking awkwardly */
+  p {
+    orphans: 3;
+    widows: 3;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Reduce spacing for print */
+  .prose {
+    max-width: 100%;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove top margin from first section */
+  .prose > section:first-child {
+    margin-top: 0 !important;
+  }
+
+  .prose section {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Keep h2 with first element after it */
+  .prose h2 + * {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  .prose h3 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.125rem;
+  }
+
+  /* Keep h3 with first element after it */
+  .prose h3 + * {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  .prose p {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose ul {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose li {
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
+  }
+
+  /* Reduce gaps in flex containers */
+  .flex.flex-col.gap-4 {
+    gap: 0.5rem !important;
+  }
+
+  /* Prevent experience container items from breaking */
+  .flex.flex-col.gap-4 > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep Technologies component together */
+  .flex.flex-row.flex-wrap {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep badge groups together */
+  .badge {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .flex.flex-row.gap-4 {
+    gap: 0.5rem !important;
+  }
+
+  .flex.flex-row.gap-2 {
+    gap: 0.25rem !important;
+  }
+
+  /* Reduce padding on experience items */
+  .border-b.pb-4 {
+    padding-bottom: 0.25rem !important;
+  }
+
+  /* Reduce spacing even more for experience items */
+  .border-b > p {
+    margin-top: 0.125rem !important;
+    margin-bottom: 0.125rem !important;
+  }
+
+  .border-b > ul {
+    margin-top: 0.125rem !important;
+    margin-bottom: 0.125rem !important;
+  }
+
+  /* Reduce negative margins */
+  .-mt-4 {
+    margin-top: -0.5rem !important;
+  }
+
+  /* Reduce spacing in contact info */
+  .space-y-1 {
+    gap: 0.125rem !important;
+  }
+
+  /* Reduce badge spacing */
+  .badge {
+    padding: 0.125rem 0.375rem !important;
+    font-size: 0.625rem !important;
+  }
 }
