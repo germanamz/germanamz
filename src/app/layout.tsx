@@ -15,8 +15,55 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Germán Meza',
+  metadataBase: new URL('https://germanamz.com'),
+  title: {
+    default: 'Germán Meza',
+    template: '%s | Germán Meza',
+  },
   description: 'Software Developer living out in Guadalajara, México.',
+  keywords: ['software developer', 'full stack developer', 'react', 'nextjs', 'typescript', 'javascript', 'guadalajara', 'mexico'],
+  authors: [{ name: 'Germán Meza' }],
+  creator: 'Germán Meza',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://germanamz.com',
+    siteName: 'Germán Meza',
+    title: 'Germán Meza',
+    description: 'Software Developer living out in Guadalajara, México.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Germán Meza',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Germán Meza',
+    description: 'Software Developer living out in Guadalajara, México.',
+    creator: '@germanamz',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add your verification codes here when available
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+    // yahoo: 'your-yahoo-verification-code',
+  },
 };
 
 export default function RootLayout({

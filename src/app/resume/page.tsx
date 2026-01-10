@@ -1,7 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Technologies } from './_components/Technologies';
 import { resume } from './constants';
 import { DownloadButton } from './_components/DownloadButton';
+
+export const metadata: Metadata = {
+  title: 'Resume',
+  description: `${resume.name} - ${resume.description} View my professional experience, education, and technical skills.`,
+  openGraph: {
+    title: 'Resume | Germán Meza',
+    description: `${resume.name} - ${resume.description} View my professional experience, education, and technical skills.`,
+    url: 'https://germanamz.com/resume',
+  },
+};
 
 const ResumePage = () => {
   const technologies = Array.from(new Set(resume.experience.flatMap((experience) => experience.technologies)));

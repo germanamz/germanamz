@@ -1,4 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Writing',
+  description: 'Articles, thoughts, and writings by Germán Meza on software development, technology, and more.',
+  openGraph: {
+    title: 'Writing | Germán Meza',
+    description: 'Articles, thoughts, and writings by Germán Meza on software development, technology, and more.',
+    url: 'https://germanamz.com/writing',
+  },
+};
 
 const WritingPage = () => {
   return (
