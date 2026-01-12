@@ -29,7 +29,7 @@ export const experience: Experience[] = [
       'Mentored junior developers.',
       'Performed code reviews to ensure quality standards.',
       'Optimized code to deliver the best performances possible.',
-      'Coordinated with other teams to ensure the success of the project.',
+      'Coordinated with other teams to ensure the success of projects.',
       'Coordinated organization-wide initiatives to improve the overall user experience.',
       'Analyzed points of opportunity to tackle performance issues.',
       'Proficient on development of new features.',
