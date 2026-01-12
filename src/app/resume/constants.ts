@@ -38,6 +38,7 @@ export const experience: Experience[] = [
   },
   {
     company: 'X-Team',
+    client: 'Multiple',
     url: 'https://x-team.com/',
     title: 'Senior Software Engineer',
     startDate: new Date('2021-10-01T00:00:00'),
