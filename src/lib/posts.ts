@@ -47,7 +47,8 @@ export function getAllPosts(): PostMeta[] {
 }
 
 export function getPostBySlug(slug: string): Post | null {
-  const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
+  const safeName = path.basename(slug);
+  const filePath = path.join(POSTS_DIR, `${safeName}.mdx`);
 
   if (!fs.existsSync(filePath)) {
     return null;
