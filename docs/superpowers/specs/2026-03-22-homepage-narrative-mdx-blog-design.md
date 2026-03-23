@@ -22,15 +22,15 @@
 #### File Structure
 
 ```
+content/
+  posts/
+    *.mdx                   — blog posts (project root, separate from app code)
 src/
   app/
     writing/
       page.tsx              — post listing page (replaces placeholder)
       [slug]/
         page.tsx            — individual post page
-  content/
-    posts/
-      *.mdx                 — blog posts
   lib/
     posts.ts               — utility to read/parse MDX files
 ```
