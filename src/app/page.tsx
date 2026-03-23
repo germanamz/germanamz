@@ -28,14 +28,11 @@ export default function Home() {
           fast.
         </p>
         <p>
-          Outside of work, I pick up a camera more often than I probably should.
-          I live in Guadalajara, México, and when I&apos;m not coding or
-          shooting photos, I&apos;m usually planning the next trip. You can see
-          what I&apos;m up to on{' '}
-          <Link href="https://www.instagram.com/germanamz/" target="_blank">
-            Instagram
-          </Link>{' '}
-          or check out my side projects{' '}
+          Outside of work, I&apos;ve been diving deep into the math behind
+          computer science — the kind of thinking that makes you see familiar
+          problems in a completely different light. I live in Guadalajara,
+          México, and when I&apos;m not coding or working through proofs,
+          I&apos;m usually planning the next trip. Check out my side projects{' '}
           <Link href="https://github.com/germanamz" target="_blank">
             on GitHub
           </Link>

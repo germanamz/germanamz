@@ -1,0 +1,34 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Personal website for Germán Meza (germanamz.com). A Next.js 16 app deployed on Vercel with Tailwind CSS v4 and DaisyUI v5.
+
+## Commands
+
+- **Dev server:** `pnpm dev`
+- **Build:** `pnpm build`
+- **Lint:** `pnpm lint`
+- **Node version:** 24.12.0 (see `.nvmrc`)
+
+## Architecture
+
+This is a Next.js App Router project using the `src/app/` directory structure with three pages:
+
+- `/` — Home/bio page
+- `/resume` — Resume page with experience, education, and technologies rendered from typed constants in `src/app/resume/constants.ts`
+- `/writing` — Placeholder writing/blog page
+
+### Key Patterns
+
+- **Path alias:** `@/*` maps to `./src/*`
+- **Resume data:** All resume content lives in `src/app/resume/constants.ts` with types in `src/app/resume/types.ts`. Experience entries support an optional `client` field for contract work.
+- **Route-scoped components:** Private components use `_components/` directories within their route (e.g., `src/app/resume/_components/`)
+- **Print stylesheet:** `globals.css` contains extensive `@media print` rules that hide navigation/footer and optimize layout for PDF export. The resume "Download as PDF" button triggers `window.print()`.
+- **Styling:** Tailwind CSS v4 with PostCSS plugin, DaisyUI for component classes (badges, buttons), and `@tailwindcss/typography` prose class for content formatting
+- **Font:** Roboto via `next/font/google`
+- **Navigation:** Client component (`src/components/Navigation.tsx`) with mobile hamburger menu
+- **Analytics:** Vercel Analytics and Speed Insights integrated in root layout
+- **SEO:** OpenGraph/Twitter metadata, robots.txt, and sitemap.xml configured
