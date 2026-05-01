@@ -43,3 +43,6 @@ docs/superpowers/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editorial-review skill outputs
+content/posts/*.review.md
