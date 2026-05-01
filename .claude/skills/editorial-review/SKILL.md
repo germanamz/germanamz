@@ -98,7 +98,7 @@ This list grows as the writer notices their own tells. To add a new entry, appen
 ## Output Rules
 
 - **Verdict comes first. Always.** The "is this piece working?" call must precede line edits, even under time pressure.
-- **Verdict-tier dimensions (Hook, Through-line, Ending) appear in the Verdict pass ONLY.** Do not re-list them in Issues — that creates redundancy and dilutes the structural-vs-mechanical distinction.
+- **Verdict-tier dimensions (Hook, Through-line, Ending) appear in the Verdict pass ONLY.** Do not re-list them in Issues — that creates redundancy and dilutes the structural-vs-mechanical distinction. **This applies to substance, not just dimension name:** an Issue titled "Completeness", "Closure", "Resolution", "Opening", "Lede", or any other label is still a verdict-tier issue if the substance is about the post's beginning, argument-spine, or end. Move it to the Verdict pass.
 - **Verdict-level rewrite directions are generated only for ⚠ / ✗.** No busywork on what's already working.
 - **Mechanical issues (Style A) end at "What's wrong" — no rewrite given.** The writer fixes it. This is intentional; it's how learning happens.
 - **Every issue quotes the post directly with a paragraph marker.** Anchor every finding to specific text.
@@ -134,6 +134,9 @@ If you find yourself thinking any of these while producing a review, stop and re
 - "The user said 'quick pass' — I'll just give bullets."
 - "Em dashes are stylistic preference, I'll let it slide."
 - "I don't need to quote the post, the user wrote it."
-- "The ending is broken, I'll put it in Issues so the writer has a concrete action item." ← NO. The Verdict pass already gives 2–3 rewrite directions for any ✗ dimension. Adding it to Issues creates duplicate, conflicting instructions. **Before finalizing Issues, remove any item whose dimension is Hook, Through-line, or Ending.**
+- "The ending is broken, I'll put it in Issues so the writer has a concrete action item." ← NO. The Verdict pass already gives 2–3 rewrite directions for any ✗ dimension. Adding it to Issues creates duplicate, conflicting instructions.
+- "I'll rename the dimension to 'Completeness' / 'Closure' / 'Lede' / 'Opening' so it's not technically a verdict-tier item." ← NO. The rule is about substance. If the issue is about the post's beginning, argument-spine, or end, it belongs in the Verdict pass regardless of label.
+
+**Before finalizing the Issues list, run this scan:** for every Issue, ask "is this issue about the hook/opening, the central argument, or the ending/landing of the post?" If yes for any of them, that issue belongs in the Verdict pass — delete it from Issues.
 
 All of these mean: re-read the rubric and produce the report as specified.
