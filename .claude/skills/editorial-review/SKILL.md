@@ -98,6 +98,7 @@ This list grows as the writer notices their own tells. To add a new entry, appen
 ## Output Rules
 
 - **Verdict comes first. Always.** The "is this piece working?" call must precede line edits, even under time pressure.
+- **Verdict-tier dimensions (Hook, Through-line, Ending) appear in the Verdict pass ONLY.** Do not re-list them in Issues — that creates redundancy and dilutes the structural-vs-mechanical distinction.
 - **Verdict-level rewrite directions are generated only for ⚠ / ✗.** No busywork on what's already working.
 - **Mechanical issues (Style A) end at "What's wrong" — no rewrite given.** The writer fixes it. This is intentional; it's how learning happens.
 - **Every issue quotes the post directly with a paragraph marker.** Anchor every finding to specific text.
@@ -109,7 +110,7 @@ This list grows as the writer notices their own tells. To add a new entry, appen
 
 ## Calibration: See `example-review.md`
 
-Before producing a review, read `example-review.md` in this skill directory. It is a complete worked review of `content/posts/add.mdx` and is the calibration model for tone, depth, and specificity.
+Before producing a review, read `.claude/skills/editorial-review/example-review.md`. It is a complete worked review of `content/posts/add.mdx` and is the calibration model for tone, depth, and specificity.
 
 ## Common Mistakes
 
