@@ -122,6 +122,7 @@ Before producing a review, read `.claude/skills/editorial-review/example-review.
 | Listing every issue exhaustively | Reader can't act on 30 flags. Top-N forces prioritization. | Pick highest-impact issues. Note that more exist if needed. |
 | Generic feedback ("this is unclear") | Doesn't teach. Writer can't generalize from it. | Always state the principle from the rubric. |
 | Failing to quote the post | Writer can't find the spot. Feedback becomes abstract. | Every issue gets a `> "quote" (¶N)` line. |
+| Re-listing Hook/Through-line/Ending in Issues | Doubles the work, dilutes the structural-vs-mechanical distinction, and sends the writer two conflicting sets of directions for the same problem. | After writing the Verdict pass, scan the Issues list and remove any item whose dimension is Hook, Through-line, or Ending. Verdict pass already covers it with rewrite directions. |
 
 ## Red Flags — STOP and re-check
 
@@ -133,5 +134,6 @@ If you find yourself thinking any of these while producing a review, stop and re
 - "The user said 'quick pass' — I'll just give bullets."
 - "Em dashes are stylistic preference, I'll let it slide."
 - "I don't need to quote the post, the user wrote it."
+- "The ending is broken, I'll put it in Issues so the writer has a concrete action item." ← NO. The Verdict pass already gives 2–3 rewrite directions for any ✗ dimension. Adding it to Issues creates duplicate, conflicting instructions. **Before finalizing Issues, remove any item whose dimension is Hook, Through-line, or Ending.**
 
 All of these mean: re-read the rubric and produce the report as specified.
