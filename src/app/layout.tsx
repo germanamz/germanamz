@@ -6,6 +6,7 @@ import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa6";
 import Navigation from "@/components/Navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -108,6 +109,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
       </body>
+      <GoogleAnalytics gaId="G-10JWQ5PYE7" />
     </html>
   );
 }

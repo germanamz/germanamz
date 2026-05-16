@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import type { Metadata } from 'next';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
+import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
+import DictationButton from './_components/DictationButton';
 
 type Params = { slug: string };
 
@@ -54,7 +55,12 @@ export default async function PostPage({
     <article>
       <header className="mb-8">
         <h1 className="text-2xl font-bold">{post.title}</h1>
-        <p className="text-gray-500 mt-1">{formattedDate}</p>
+        <div className="flex items-center gap-2 text-gray-500 mt-1">
+          <span>
+            {formattedDate} · {post.readingMinutes} min read
+          </span>
+          <DictationButton text={toSpokenText(post.content)} />
+        </div>
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
             {post.tags.map((tag) => (
