@@ -24,6 +24,36 @@ Use when **either** is true:
 
 Do NOT use during raw drafting. Generative writing and critical review are different modes; running this skill mid-draft is harmful.
 
+## Author scratchpad blocks (not in scope)
+
+Drafts often contain author-side scratchpad blockquotes the writer left for themselves about what to write next. These are drafting aids, not copy that will ship. Treat them as out of scope for the review.
+
+**How to detect one:** a blockquote whose first token is `Mental Note`, `TODO`, `Note to self`, `Draft note`, or whose content is plainly an instruction the writer wrote to themselves ("I want to talk about…", "remember to mention…"). When in doubt, ask the user before flagging.
+
+**How to handle:**
+
+- Do not flag the block itself as a paragraph-structure problem, voice slip, or "draft scaffold visible." It isn't part of the post.
+- Do not raise Issues against a section whose body is *only* a scratchpad block. There's no copy there to critique yet. In particular, do not flag header–payoff coupling, specificity, or argument flow inside such a section.
+- The **Ending / payoff** verdict still applies normally. If the post has no real ending yet, that is still ✗, but say in the verdict line that the second half is a known scratchpad and that fixing the landing *now* is what shapes the eventual draft.
+- If the post is mostly scratchpad with little written copy, this skill isn't the right tool yet. Say so and stop, rather than reviewing the sketch.
+
+**Anchoring inside a scratchpad:** the only acceptable reason to quote
+*from* a scratchpad block is to surface a spelling typo in a header users
+will skim, or to note an item for completeness inside an Issue 5-style
+typo cluster. When you do, use the scratchpad anchor form:
+`*(§N scratchpad — out of scope, <reason>)*` (or the dotted form
+`*(§N.M scratchpad — ...)*` for scratchpads inside an H3). The `— out of
+scope` clause is mandatory — it's how downstream tooling detects that the
+anchor points into non-shipping copy. See `md_references.md` for the
+full spec.
+
+**Status-line convention:** when a post contains scratchpad blocks, the
+review's status line notes them so a downstream reader (or tool) knows
+the post isn't a finished draft, e.g. *"status: published:false
+(mid-draft; the `> Mental Note:` blocks under §4 and §5 are author
+scratchpad, out of scope for this pass)"*. The phrase `out of scope for
+this pass` is the canonical signal.
+
 ## Output: Two-Pass Report
 
 Save the review to `content/posts/<slug>.review.md` (gitignored — does not ship).
@@ -55,7 +85,7 @@ The report has exactly two passes, in this order. **Verdict always comes first.*
 ## Issues (prioritized)
 
 ### 1. <Dimension> — <short title>
-> "<exact quote from the post>" *(¶N)*
+> "<exact quote from the post>" *(<anchor>)*
 
 **Principle:** <one-line principle from the rubric>
 **What's wrong:** <1–2 sentences specific to this instance>
@@ -63,6 +93,38 @@ The report has exactly two passes, in this order. **Verdict always comes first.*
 
 ### 2. …
 ```
+
+### Reference Anchors
+
+Every quote in the review must be anchored to a location in the source `.mdx`
+using the conventions in [`md_references.md`](./md_references.md). The
+authoritative spec lives there; this section is a quick reference.
+
+Anchors are wrapped in italicized parentheses: `*(<target>)*`. The target
+is one of:
+
+| Form                                     | Meaning                                                          |
+|------------------------------------------|------------------------------------------------------------------|
+| `¶N`                                     | Nth prose paragraph in the pre-section region (before any H2).  |
+| `§N`                                     | Nth H2 section (also written `§N header`).                       |
+| `§N ¶M`                                  | Mth prose paragraph inside the Nth H2 section.                   |
+| `§N.M`                                   | Mth H3 inside the Nth H2 (dotted path; extends out to H6).       |
+| `§N.M ¶K`                                | Kth prose paragraph inside that H3.                              |
+| `§N header`                              | The H2 heading line itself (and analogously `§N.M header`).      |
+| `§N, final sentence`                     | The last sentence of the Nth section's last addressable block.   |
+| `§N, post-scratchpad`                    | First prose paragraph after a scratchpad block inside the scope. |
+| `§N scratchpad — out of scope, <reason>` | A token inside a scratchpad blockquote; non-actionable.          |
+| `¶A–¶B`                                  | Range of paragraphs (en-dash, U+2013).                           |
+
+**Counting rules** (full spec in `md_references.md`):
+- Frontmatter is skipped.
+- Only H2 and deeper headings affect the path; H1 is ignored.
+- Each heading increments its level's sibling counter and resets `¶ = 0`.
+- Sibling indices reset per parent: two different H2s each get their own
+  `.1`, `.2`, ... children.
+- Scratchpad blockquotes (first token `Mental Note`, `TODO`, `Note to self`,
+  `Draft note`) do not count as paragraphs and never increment `¶`.
+- Two prose blocks separated only by a scratchpad block are consecutive `¶`.
 
 ## The Rubric (11 dimensions)
 
@@ -101,7 +163,7 @@ This list grows as the writer notices their own tells. To add a new entry, appen
 - **Verdict-tier dimensions (Hook, Through-line, Ending) appear in the Verdict pass ONLY.** Do not re-list them in Issues — that creates redundancy and dilutes the structural-vs-mechanical distinction. **This applies to substance, not just dimension name:** an Issue titled "Completeness", "Closure", "Resolution", "Opening", "Lede", or any other label is still a verdict-tier issue if the substance is about the post's beginning, argument-spine, or end. Move it to the Verdict pass.
 - **Verdict-level rewrite directions are generated only for ⚠ / ✗.** No busywork on what's already working.
 - **Mechanical issues (Style A) end at "What's wrong" — no rewrite given.** The writer fixes it. This is intentional; it's how learning happens.
-- **Every issue quotes the post directly with a paragraph marker.** Anchor every finding to specific text.
+- **Every issue quotes the post directly with a reference anchor.** Anchor every finding to specific text using the conventions in `md_references.md` (e.g. `*(¶1)*`, `*(§2 ¶3)*`, `*(§2.1 header)*`).
 - **Issue count follows the post:**
   - Typical draft: top 5–10 issues.
   - Polished post: 2–3 flags is fine. **Never invent issues to fill a quota.**
@@ -112,6 +174,10 @@ This list grows as the writer notices their own tells. To add a new entry, appen
 
 Before producing a review, read `.claude/skills/editorial-review/example-review.md`. It is a complete worked review of `content/posts/add.mdx` and is the calibration model for tone, depth, and specificity.
 
+## Anchor Spec: See `md_references.md`
+
+The reference-anchor conventions used throughout reviews (paragraph numbering, dotted section paths for H2–H6, scratchpad anchors, ranges) are specified in `.claude/skills/editorial-review/md_references.md`. That file is the authoritative source — read it once if you're unsure how to address a location, and follow its grammar exactly so editor tooling can resolve anchors back to source-file positions.
+
 ## Common Mistakes
 
 | Mistake | Why it's wrong | Fix |
@@ -121,7 +187,8 @@ Before producing a review, read `.claude/skills/editorial-review/example-review.
 | Wholesale rewrite for mechanical issues | Removes the learning. Writer ships the post but doesn't internalize the principle. | Style A means principle-only. No rewrite. Resist requests to "just rewrite it." |
 | Listing every issue exhaustively | Reader can't act on 30 flags. Top-N forces prioritization. | Pick highest-impact issues. Note that more exist if needed. |
 | Generic feedback ("this is unclear") | Doesn't teach. Writer can't generalize from it. | Always state the principle from the rubric. |
-| Failing to quote the post | Writer can't find the spot. Feedback becomes abstract. | Every issue gets a `> "quote" (¶N)` line. |
+| Failing to quote the post | Writer can't find the spot. Feedback becomes abstract. | Every issue gets a `> "quote" *(<anchor>)*` line using `md_references.md` conventions. |
+| Using ad-hoc anchor formats (`(P3)`, `(section 2 paragraph 3)`, page numbers) | Anchors are machine-readable so the writer's editor can jump to the location. Non-spec anchors break that. | Use the `md_references.md` forms: `*(¶N)*`, `*(§N ¶M)*`, `*(§N.M ¶K)*`, etc. |
 | Re-listing Hook/Through-line/Ending in Issues | Doubles the work, dilutes the structural-vs-mechanical distinction, and sends the writer two conflicting sets of directions for the same problem. | After writing the Verdict pass, scan the Issues list and remove any item whose dimension is Hook, Through-line, or Ending. Verdict pass already covers it with rewrite directions. |
 
 ## Red Flags — STOP and re-check
@@ -136,6 +203,7 @@ If you find yourself thinking any of these while producing a review, stop and re
 - "I don't need to quote the post, the user wrote it."
 - "The ending is broken, I'll put it in Issues so the writer has a concrete action item." ← NO. The Verdict pass already gives 2–3 rewrite directions for any ✗ dimension. Adding it to Issues creates duplicate, conflicting instructions.
 - "I'll rename the dimension to 'Completeness' / 'Closure' / 'Lede' / 'Opening' so it's not technically a verdict-tier item." ← NO. The rule is about substance. If the issue is about the post's beginning, argument-spine, or end, it belongs in the Verdict pass regardless of label.
+- "I'll flag the `> Mental Note: …` block as a draft scaffold left in the post." ← NO. Scratchpad blockquotes (Mental Note / TODO / Note to self) are author drafting aids, not copy. They're out of scope. See *Author scratchpad blocks (not in scope)*.
 
 **Before finalizing the Issues list, run this scan:** for every Issue, ask "is this issue about the hook/opening, the central argument, or the ending/landing of the post?" If yes for any of them, that issue belongs in the Verdict pass — delete it from Issues.
 
