@@ -19,6 +19,13 @@ export type Post = PostMeta & {
 const POSTS_DIR = path.join(process.cwd(), 'content', 'posts');
 const WORDS_PER_MINUTE = 225;
 
+function showsDrafts(): boolean {
+  return (
+    process.env.NODE_ENV === 'development' ||
+    process.env.VERCEL_ENV === 'preview'
+  );
+}
+
 function countWords(markdown: string): number {
   const text = markdown
     .replace(/```[\s\S]*?```/g, ' ')
@@ -73,7 +80,7 @@ export function getAllPosts(): PostMeta[] {
         readingMinutes: getReadingMinutes(content),
       };
     })
-    .filter((post) => post.published || process.env.NODE_ENV === 'development')
+    .filter((post) => post.published || showsDrafts())
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;
@@ -101,7 +108,7 @@ export function getPostBySlug(slug: string): Post | null {
     content,
   };
 
-  if (!post.published && process.env.NODE_ENV !== 'development') {
+  if (!post.published && !showsDrafts()) {
     return null;
   }
 
