@@ -46,7 +46,9 @@ export default function WritingPage() {
               >
                 <h3 className="text-lg font-semibold">{post.title}</h3>
               </Link>
-              <p className="text-sm text-gray-500">{formattedDate}</p>
+              <p className="text-sm text-gray-500">
+                {formattedDate} · {post.readingMinutes} min read
+              </p>
               <p className="text-gray-700 mt-1">{post.description}</p>
             </li>
           );
