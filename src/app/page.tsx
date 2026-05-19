@@ -53,6 +53,7 @@ export default function Home() {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
+                  timeZone: 'UTC',
                 },
               );
 
