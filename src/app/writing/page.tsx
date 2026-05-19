@@ -35,6 +35,7 @@ export default function WritingPage() {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
+              timeZone: 'UTC',
             },
           );
 

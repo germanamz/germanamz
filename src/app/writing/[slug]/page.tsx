@@ -45,11 +45,17 @@ export default async function PostPage({
     notFound();
   }
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+  const dateFormat: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+    timeZone: 'UTC',
+  };
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', dateFormat);
+  const formattedUpdated =
+    post.updated && post.updated !== post.date
+      ? new Date(post.updated).toLocaleDateString('en-US', dateFormat)
+      : null;
 
   return (
     <article>
@@ -61,6 +67,9 @@ export default async function PostPage({
           </span>
           <DictationButton text={toSpokenText(post.content)} />
         </div>
+        {formattedUpdated && (
+          <p className="text-sm text-gray-400 mt-1">Updated {formattedUpdated}</p>
+        )}
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
             {post.tags.map((tag) => (

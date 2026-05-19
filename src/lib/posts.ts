@@ -6,6 +6,7 @@ export type PostMeta = {
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description: string;
   tags: string[];
   published: boolean;
@@ -74,6 +75,7 @@ export function getAllPosts(): PostMeta[] {
         slug,
         title: data.title ?? slug,
         date: data.date ?? '',
+        updated: data.updated,
         description: data.description ?? '',
         tags: data.tags ?? [],
         published: data.published ?? false,
@@ -101,6 +103,7 @@ export function getPostBySlug(slug: string): Post | null {
     slug,
     title: data.title ?? slug,
     date: data.date ?? '',
+    updated: data.updated,
     description: data.description ?? '',
     tags: data.tags ?? [],
     published: data.published ?? false,
