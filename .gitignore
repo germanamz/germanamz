@@ -46,3 +46,6 @@ next-env.d.ts
 
 # editorial-review skill outputs
 content/posts/*.review.md
+
+# playwright-mcp session artifacts
+.playwright-mcp/
