@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
+import { postSources } from './posts-content.generated';
 
 export type PostMeta = {
   slug: string;
@@ -17,7 +16,6 @@ export type Post = PostMeta & {
   content: string;
 };
 
-const POSTS_DIR = path.join(process.cwd(), 'content', 'posts');
 const WORDS_PER_MINUTE = 225;
 
 function showsDrafts(): boolean {
@@ -57,49 +55,9 @@ export function toSpokenText(markdown: string): string {
     .trim();
 }
 
-export function getAllPosts(): PostMeta[] {
-  if (!fs.existsSync(POSTS_DIR)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx'));
-
-  const posts = files
-    .map((filename): PostMeta => {
-      const slug = filename.replace(/\.mdx$/, '');
-      const filePath = path.join(POSTS_DIR, filename);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data, content } = matter(fileContent);
-
-      return {
-        slug,
-        title: data.title ?? slug,
-        date: data.date ?? '',
-        updated: data.updated,
-        description: data.description ?? '',
-        tags: data.tags ?? [],
-        published: data.published ?? false,
-        readingMinutes: getReadingMinutes(content),
-      };
-    })
-    .filter((post) => post.published || showsDrafts())
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  return posts;
-}
-
-export function getPostBySlug(slug: string): Post | null {
-  const safeName = path.basename(slug);
-  const filePath = path.join(POSTS_DIR, `${safeName}.mdx`);
-
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
-
-  const post: Post = {
+function parsePost(slug: string, source: string): Post {
+  const { data, content } = matter(source);
+  return {
     slug,
     title: data.title ?? slug,
     date: data.date ?? '',
@@ -110,7 +68,23 @@ export function getPostBySlug(slug: string): Post | null {
     readingMinutes: getReadingMinutes(content),
     content,
   };
+}
 
+export function getAllPosts(): PostMeta[] {
+  return Object.entries(postSources)
+    .map(([slug, source]) => parsePost(slug, source))
+    .filter((post) => post.published || showsDrafts())
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .map(({ content: _content, ...meta }) => meta);
+}
+
+export function getPostBySlug(slug: string): Post | null {
+  const source = postSources[slug];
+  if (!source) {
+    return null;
+  }
+
+  const post = parsePost(slug, source);
   if (!post.published && !showsDrafts()) {
     return null;
   }
