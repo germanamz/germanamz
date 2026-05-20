@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
-import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope, FaXTwitter } from "react-icons/fa6";
 import Navigation from "@/components/Navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -92,6 +92,9 @@ export default function RootLayout({
               <ul className="flex flex-row gap-4">
                 <li>
                   <Link href="mailto:iam@germanamz.com" target="_blank"><FaEnvelope className="w-4 h-4" /></Link>
+                </li>
+                <li>
+                  <Link href="https://x.com/germanamz" target="_blank"><FaXTwitter className="w-4 h-4" /></Link>
                 </li>
                 <li>
                   <Link href="https://github.com/germanamz" target="_blank"><FaGithub className="w-4 h-4" /></Link>
