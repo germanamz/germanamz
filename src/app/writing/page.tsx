@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { getAllPosts } from '@/lib/posts';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import writingSource from '../../../content/pages/writing.mdx';
+import { mdxComponents, mdxOptions } from '@/lib/page-content';
+import { DownloadButton } from '@/components/DownloadButton';
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -12,49 +14,20 @@ export const metadata: Metadata = {
       'Articles, thoughts, and writings by Germán Meza on software development, technology, and more.',
     url: 'https://germanamz.com/writing',
   },
+  alternates: {
+    types: {
+      'text/markdown': '/md/writing',
+    },
+  },
 };
 
 export default function WritingPage() {
-  const posts = getAllPosts();
-
-  if (posts.length === 0) {
-    return (
-      <div className="prose">
-        <p>Nothing here yet. Check back soon.</p>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <ul className="space-y-6">
-        {posts.map((post) => {
-          const formattedDate = new Date(post.date).toLocaleDateString(
-            'en-US',
-            {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              timeZone: 'UTC',
-            },
-          );
-
-          return (
-            <li key={post.slug}>
-              <Link
-                href={`/writing/${post.slug}`}
-                className="block hover:underline"
-              >
-                <h3 className="text-lg font-semibold">{post.title}</h3>
-              </Link>
-              <p className="text-sm text-gray-500">
-                {formattedDate} · {post.readingMinutes} min read
-              </p>
-              <p className="text-gray-700 mt-1">{post.description}</p>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="relative">
+      <div className="absolute top-0 right-0">
+        <DownloadButton />
+      </div>
+      <MDXRemote source={writingSource} components={mdxComponents} options={mdxOptions} />
     </div>
   );
 }

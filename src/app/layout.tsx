@@ -49,6 +49,11 @@ export const metadata: Metadata = {
     creator: '@germanamz',
     images: ['/og-image.png'],
   },
+  alternates: {
+    types: {
+      'text/markdown': '/md',
+    },
+  },
   robots: {
     index: true,
     follow: true,
