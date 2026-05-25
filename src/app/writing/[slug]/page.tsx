@@ -5,6 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import type { Metadata } from 'next';
 import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
 import DictationButton from './_components/DictationButton';
+import { DownloadButton } from '@/components/DownloadButton';
 
 type MdxOptions = React.ComponentProps<typeof MDXRemote>['options'];
 
@@ -49,6 +50,11 @@ export async function generateMetadata({
       description: post.description,
       url: `https://germanamz.com/writing/${post.slug}`,
     },
+    alternates: {
+      types: {
+        'text/markdown': `/md/writing/${post.slug}`,
+      },
+    },
   };
 }
 
@@ -85,6 +91,7 @@ export default async function PostPage({
             {formattedDate} · {post.readingMinutes} min read
           </span>
           <DictationButton text={toSpokenText(post.content)} />
+          <DownloadButton />
         </div>
         {formattedUpdated && (
           <p className="text-sm text-gray-400 mt-1">Updated {formattedUpdated}</p>
