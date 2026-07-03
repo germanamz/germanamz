@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
+import { DraftBadge } from '@/components/DraftBadge';
 
 export const PostsList = () => {
   const posts = getAllPosts();
@@ -18,12 +19,15 @@ export const PostsList = () => {
         });
         return (
           <li key={post.slug}>
-            <Link
-              href={`/writing/${post.slug}`}
-              className="block hover:underline"
-            >
-              <h3 className="text-lg font-semibold">{post.title}</h3>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/writing/${post.slug}`}
+                className="hover:underline"
+              >
+                <h3 className="text-lg font-semibold">{post.title}</h3>
+              </Link>
+              {!post.published && <DraftBadge />}
+            </div>
             <p className="text-sm text-gray-500">
               {formattedDate} · {post.readingMinutes} min read
             </p>

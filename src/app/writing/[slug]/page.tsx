@@ -5,6 +5,7 @@ import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
 import { mdxOptions } from '@/lib/page-content';
 import DictationButton from './_components/DictationButton';
 import { DownloadButton } from '@/components/DownloadButton';
+import { DraftBadge } from '@/components/DraftBadge';
 
 type Params = { slug: string };
 
@@ -67,7 +68,10 @@ export default async function PostPage({
   return (
     <article>
       <header className="mb-8">
-        <h1 className="text-2xl font-bold">{post.title}</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-2xl font-bold">{post.title}</h1>
+          {!post.published && <DraftBadge />}
+        </div>
         <div className="flex items-center gap-2 text-gray-500 mt-1">
           <span>
             {formattedDate} · {post.readingMinutes} min read
