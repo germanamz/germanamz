@@ -12,6 +12,7 @@ Personal website for Germán Meza (germanamz.com). A Next.js 16 app deployed on 
 - **Build:** `pnpm build`
 - **Lint:** `pnpm lint`
 - **Node version:** 24.12.0 (see `.nvmrc`)
+- **Fresh clone:** `git submodule update --init content/posts` populates the private posts submodule (see *Private posts submodule* under Architecture)
 
 ## Architecture
 
@@ -32,7 +33,8 @@ This is a Next.js App Router project using the `src/app/` directory structure wi
 - **Font:** Roboto via `next/font/google`
 - **Navigation:** Client component (`src/components/Navigation.tsx`) with mobile hamburger menu
 - **Analytics:** Vercel Analytics and Speed Insights integrated in root layout
-- **Blog posts:** MDX files in `content/posts/` with YAML frontmatter (title, date, description, tags, published). Parsed by `src/lib/posts.ts` using `gray-matter`.
+- **Blog posts:** MDX files in `content/posts/` with YAML frontmatter (title, date, description, tags, published). Parsed by `src/lib/posts.ts` using `gray-matter`. Note `content/posts/` is a **private submodule** (see below).
+- **Private posts submodule:** `content/posts/` is a git submodule of the private `github.com/germanamz/writing` repo, so in-progress writing stays out of the public repo until published. `.gitmodules` uses an HTTPS URL (required by Vercel); to work with it locally over SSH, set `git config --global url."git@github.com:".insteadOf "https://github.com/"` (or run `gh auth setup-git`), then `git submodule update --init content/posts`. **Editing a post is two commits:** commit inside `content/posts/` (the `writing` repo), then `git add content/posts` in the site repo to bump the pointer. Vercel can't fetch private submodules natively, so `scripts/vercel-fetch-posts.mjs` (wired via `vercel.json` `installCommand`) mints a short-lived GitHub App installation token at build time from `GH_APP_ID` / `GH_APP_INSTALLATION_ID` / `GH_APP_PRIVATE_KEY_B64`; it no-ops locally, and `generate-posts-index.mjs` fails the build if the submodule is empty.
 - **MDX pipeline:** The shared remark/rehype config lives in `src/lib/page-content.ts` (`mdxOptions`) and is imported by every rendered surface (home, resume, writing index, and posts) — add plugins there, not per-page.
 - **Math (TeX):** Write LaTeX with `$$…$$` — inline when mid-sentence, display when the `$$` fences are on their own lines. A bare `$` is always literal (single-dollar math is disabled), so escaping prices isn't needed. Rendered to HTML+MathML at build time by `remark-math` + `rehype-katex` (no client JS); KaTeX CSS is imported once in `layout.tsx`. A malformed expression renders inline-red in `pnpm dev` but **fails `pnpm build`** (via the `rehypeFailOnKatexError` guard in `page-content.ts`), so broken math can't deploy.
 - **SEO:** OpenGraph/Twitter metadata, robots.txt, and sitemap.xml configured (sitemap dynamically includes blog posts)
