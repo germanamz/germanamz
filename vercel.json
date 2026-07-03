@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "node scripts/vercel-fetch-posts.mjs && pnpm install"
+}
