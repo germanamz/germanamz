@@ -1,28 +1,10 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import type { Metadata } from 'next';
 import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
+import { mdxOptions } from '@/lib/page-content';
 import DictationButton from './_components/DictationButton';
 import { DownloadButton } from '@/components/DownloadButton';
-
-type MdxOptions = React.ComponentProps<typeof MDXRemote>['options'];
-
-const mdxOptions: MdxOptions = {
-  mdxOptions: {
-    rehypePlugins: [
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: { className: 'heading-anchor' },
-        },
-      ],
-    ],
-  },
-};
 
 type Params = { slug: string };
 

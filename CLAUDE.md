@@ -33,6 +33,8 @@ This is a Next.js App Router project using the `src/app/` directory structure wi
 - **Navigation:** Client component (`src/components/Navigation.tsx`) with mobile hamburger menu
 - **Analytics:** Vercel Analytics and Speed Insights integrated in root layout
 - **Blog posts:** MDX files in `content/posts/` with YAML frontmatter (title, date, description, tags, published). Parsed by `src/lib/posts.ts` using `gray-matter`.
+- **MDX pipeline:** The shared remark/rehype config lives in `src/lib/page-content.ts` (`mdxOptions`) and is imported by every rendered surface (home, resume, writing index, and posts) — add plugins there, not per-page.
+- **Math (TeX):** Write LaTeX with `$$…$$` — inline when mid-sentence, display when the `$$` fences are on their own lines. A bare `$` is always literal (single-dollar math is disabled), so escaping prices isn't needed. Rendered to HTML+MathML at build time by `remark-math` + `rehype-katex` (no client JS); KaTeX CSS is imported once in `layout.tsx`. A malformed expression renders inline-red in `pnpm dev` but **fails `pnpm build`** (via the `rehypeFailOnKatexError` guard in `page-content.ts`), so broken math can't deploy.
 - **SEO:** OpenGraph/Twitter metadata, robots.txt, and sitemap.xml configured (sitemap dynamically includes blog posts)
 
 ## Committing Rules

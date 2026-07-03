@@ -20,7 +20,19 @@
   opacity: 1;
 }
 
+/* Let wide display equations scroll instead of overflowing the page on narrow viewports. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 @media print {
+  /* Keep display equations intact rather than splitting across pages in the PDF export. */
+  .katex-display {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   /* Remove top margins and padding for print */
   body {
     padding: 0 !important;
