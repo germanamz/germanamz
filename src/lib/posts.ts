@@ -18,6 +18,10 @@ export type Post = PostMeta & {
 
 const WORDS_PER_MINUTE = 225;
 
+// Matches `$$…$$` math (both inline and display). Stripped from reading-time
+// and dictation so LaTeX source is neither counted as words nor read aloud.
+const MATH_BLOCK = /\$\$[\s\S]*?\$\$/g;
+
 function showsDrafts(): boolean {
   return (
     process.env.NODE_ENV === 'development' ||
@@ -29,6 +33,7 @@ function countWords(markdown: string): number {
   const text = markdown
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/`[^`]*`/g, ' ')
+    .replace(MATH_BLOCK, ' ')
     .replace(/<[^>]+>/g, ' ');
   const words = text.match(/\b[\w'’-]+\b/g);
   return words ? words.length : 0;
@@ -41,6 +46,7 @@ function getReadingMinutes(markdown: string): number {
 export function toSpokenText(markdown: string): string {
   return markdown
     .replace(/```[\s\S]*?```/g, ' ')
+    .replace(MATH_BLOCK, ' ')
     .replace(/`([^`]*)`/g, '$1')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')

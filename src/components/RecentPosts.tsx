@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
+import { DraftBadge } from '@/components/DraftBadge';
 
 interface RecentPostsProps {
   limit?: number;
@@ -24,12 +25,15 @@ export const RecentPosts = ({ limit = 2 }: RecentPostsProps) => {
           });
           return (
             <li key={post.slug}>
-              <Link
-                href={`/writing/${post.slug}`}
-                className="hover:underline font-medium"
-              >
-                {post.title}
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/writing/${post.slug}`}
+                  className="hover:underline font-medium"
+                >
+                  {post.title}
+                </Link>
+                {!post.published && <DraftBadge />}
+              </div>
               <p className="text-sm text-gray-500">{formattedDate}</p>
             </li>
           );
