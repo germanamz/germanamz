@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "tusk": {
+      "type": "stdio",
+      "command": "tusk",
+      "args": ["mcp"],
+      "cwd": "content/posts"
+    }
+  }
+}
