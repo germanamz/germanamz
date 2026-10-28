@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import homeSource from '../../../../content/pages/home.mdx';
 import resumeSource from '../../../../content/pages/resume.mdx';
 import { postSources } from '@/lib/posts-content.generated';
-import { getAllPostSlugs, getAllPosts } from '@/lib/posts';
+import { getAllPostSlugs, getAllPosts, getPostBySlug } from '@/lib/posts';
 
 const PAGE_SOURCES: Record<string, string> = {
   '': homeSource,
@@ -51,9 +51,10 @@ export async function GET(
 
   if (key.startsWith('writing/')) {
     const slug = key.slice('writing/'.length);
-    const source = postSources[slug];
-    if (!source) return new NextResponse('Not found', { status: 404 });
-    return markdownResponse(source);
+    // getPostBySlug applies the published/showsDrafts() gate; postSources
+    // holds every .mdx in the submodule, drafts included.
+    if (!getPostBySlug(slug)) return new NextResponse('Not found', { status: 404 });
+    return markdownResponse(postSources[slug]);
   }
 
   const source = PAGE_SOURCES[key];
