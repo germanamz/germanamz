@@ -44,8 +44,11 @@ const pem = Buffer.from(GH_APP_PRIVATE_KEY_B64, 'base64').toString('utf8');
 let jwt;
 try {
   const header = base64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  // `iss` accepts the App's Client ID (`Iv23…`, GitHub's current
+  // recommendation) or its numeric App ID.
+  const iss = /^\d+$/.test(GH_APP_ID) ? Number(GH_APP_ID) : GH_APP_ID;
   const payload = base64url(
-    JSON.stringify({ iat: now - 60, exp: now + 540, iss: Number(GH_APP_ID) }),
+    JSON.stringify({ iat: now - 60, exp: now + 540, iss }),
   );
   const data = `${header}.${payload}`;
   const signature = crypto
