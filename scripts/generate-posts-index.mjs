@@ -19,6 +19,16 @@ const files = fs.existsSync(POSTS_DIR)
   ? fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx'))
   : [];
 
+// content/posts is a private submodule. An empty dir means it wasn't checked
+// out — fail loudly rather than silently generating an empty blog.
+if (files.length === 0) {
+  console.error(
+    '[posts] no .mdx files found in content/posts — is the submodule checked out?\n' +
+      '        run: git submodule update --init content/posts',
+  );
+  process.exit(1);
+}
+
 files.sort();
 
 const imports = files

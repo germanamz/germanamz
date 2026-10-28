@@ -47,8 +47,5 @@ next-env.d.ts
 # generated posts index
 /src/lib/posts-content.generated.ts
 
-# editorial-review skill outputs
-content/posts/*.review.md
-
 # playwright-mcp session artifacts
 .playwright-mcp/
