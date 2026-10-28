@@ -41,14 +41,22 @@ This is a Next.js App Router project using the `src/app/` directory structure wi
 
 ## Writing memory (Tusk vault)
 
-`content/posts/` is also a [Tusk](https://github.com/germanamz/tusk) vault — a local-first, semantically-indexed graph of the writing, served over MCP. The `tusk` MCP server is wired in `.mcp.json` (runs `tusk mcp` with cwd `content/posts`), so its tools are available in-session.
+`content/posts/` is also a [Tusk](https://github.com/germanamz/tusk) vault — a local-first, semantically-indexed graph of the writing, served over MCP. The tusk Claude Code plugin in `.claude/skills/tusk/` registers the `tusk` MCP server and a hook that adds the vault digest to each session's first message.
+
+Sessions start at the repo root but the vault is `content/posts/`, so the plugin runs `scripts/tusk.sh` (tusk with `--workspace content/posts`) instead of bare `tusk`; use the same wrapper for CLI calls (`./scripts/tusk.sh reindex`). `tusk claude install` only writes into the vault root, so after upgrading tusk, regenerate the plugin elsewhere and copy it in:
+
+```sh
+t=$(mktemp -d) && cp content/posts/tusk.toml "$t" && tusk claude install -C "$t" --bin ./scripts/tusk.sh && rm -rf .claude/skills/tusk && cp -R "$t/.claude/skills/tusk" .claude/skills/ && rm -rf "$t"
+```
+
+Its MCP server must be approved once per user: `"plugin:tusk:tusk"` under `enabledMcpjsonServers` in `.claude/settings.local.json` (or approve it in `/mcp`).
 
 **Use it as memory for writing-related work** — before drafting, editing, or reviewing a post, recall prior context instead of grepping:
 
 - `tusk_context` — warm-start digest (recent writing, published posts, in-progress drafts).
 - `tusk_query` — structural (`type=post AND published=true`), semantic (`--semantic "…"`), or by tag (`tags->id=tag/AI`).
 
-Posts are `post` nodes (typed by a `type: post` frontmatter key, which the site ignores); drafts and editorial reviews are `note` nodes; tags are `tag` nodes linked via the `tags` edge. Embeddings come from local Ollama (`nomic-embed-text`, 768-d); the `.tusk/` index is gitignored and rebuilt with `tusk reindex`. After editing files outside the running server, run `tusk reindex` (the MCP server also watches for changes). The schema lives in `content/posts/tusk.toml`.
+Posts are `post` nodes (typed by a `type: post` frontmatter key, which the site ignores); drafts and editorial reviews are `note` nodes; tags are `tag` nodes linked via the `tags` edge. Embeddings come from local Ollama (`nomic-embed-text`, 768-d); the `.tusk/` index is gitignored and rebuilt with `./scripts/tusk.sh reindex`. After editing files outside the running server, run `./scripts/tusk.sh reindex` (the MCP server also watches for changes). The schema lives in `content/posts/tusk.toml`.
 
 ## Committing Rules
 
