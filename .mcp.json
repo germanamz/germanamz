@@ -1,11 +1,5 @@
 {
   "mcpServers": {
-    "tusk": {
-      "type": "stdio",
-      "command": "tusk",
-      "args": ["mcp"],
-      "cwd": "content/posts"
-    },
     "vercel": {
       "type": "http",
       "url": "https://mcp.vercel.com"
