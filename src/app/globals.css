@@ -20,6 +20,28 @@
   opacity: 1;
 }
 
+/* Home and resume open with the name as the page's <h1>, but keep the quieter
+   scale of the sub-heading it used to be (an h3 on home, an h2 on the resume).
+   The values mirror @tailwindcss/typography's h3 and h2. */
+.prose.prose-h1-as-h3 > h1 {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 0.6em;
+}
+
+.prose.prose-h1-as-h2 > h1 {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.3333333;
+  margin-bottom: 1em;
+}
+
+/* Typography zeroes the top margin after h2/h3 but not after h1. */
+.prose.prose-h1-as-h2 > h1 + * {
+  margin-top: 0;
+}
+
 /* Let wide display equations scroll instead of overflowing the page on narrow viewports. */
 .katex-display {
   overflow-x: auto;
@@ -51,7 +73,7 @@
   }
 
   /* Hide sidebar (logo and navigation) */
-  body > div > div:first-child {
+  body > div > header {
     display: none;
   }
 
@@ -80,6 +102,7 @@
   }
 
   /* Prevent headings from being orphaned - keep with following content */
+  h1,
   h2 {
     page-break-after: avoid;
     break-after: avoid;
@@ -162,24 +185,31 @@
     margin-bottom: 0.5rem;
   }
 
-  .prose h2 {
+  /* The resume's name heading is an <h1> styled as an h2 (see
+     .prose-h1-as-h2 above), so it gets the h2 print spacing too. */
+  .prose h2,
+  .prose.prose-h1-as-h2 > h1 {
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
   }
 
   /* Keep h2 with first element after it */
-  .prose h2 + * {
+  .prose h2 + *,
+  .prose.prose-h1-as-h2 > h1 + * {
     page-break-before: avoid;
     break-before: avoid;
   }
 
-  .prose h3 {
+  /* Likewise the home page's <h1>, styled as an h3. */
+  .prose h3,
+  .prose.prose-h1-as-h3 > h1 {
     margin-top: 0.25rem;
     margin-bottom: 0.125rem;
   }
 
   /* Keep h3 with first element after it */
-  .prose h3 + * {
+  .prose h3 + *,
+  .prose.prose-h1-as-h3 > h1 + * {
     page-break-before: avoid;
     break-before: avoid;
   }

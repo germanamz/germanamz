@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
+import { toIsoDate } from '@/lib/site';
 import { DraftBadge } from '@/components/DraftBadge';
 
 interface RecentPostsProps {
@@ -12,9 +13,9 @@ export const RecentPosts = ({ limit = 2 }: RecentPostsProps) => {
 
   return (
     <div className="mt-10 not-prose">
-      <h4 className="text-sm font-semibold uppercase text-gray-500 mb-4">
+      <h2 className="text-sm font-semibold uppercase text-base-content/65 mb-4">
         Latest writing
-      </h4>
+      </h2>
       <ul className="space-y-4">
         {posts.map((post) => {
           const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
@@ -34,7 +35,9 @@ export const RecentPosts = ({ limit = 2 }: RecentPostsProps) => {
                 </Link>
                 {!post.published && <DraftBadge />}
               </div>
-              <p className="text-sm text-gray-500">{formattedDate}</p>
+              <p className="text-sm text-base-content/65">
+                <time dateTime={toIsoDate(post.date)?.slice(0, 10)}>{formattedDate}</time>
+              </p>
             </li>
           );
         })}

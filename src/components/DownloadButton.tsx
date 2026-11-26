@@ -15,7 +15,7 @@ export const DownloadButton = () => {
       title="Download as PDF"
       className="btn btn-xs btn-ghost"
     >
-      <FaPrint className="w-4 h-4" />
+      <FaPrint className="w-4 h-4" aria-hidden="true" />
     </button>
   );
 };

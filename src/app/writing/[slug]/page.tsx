@@ -3,9 +3,12 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import type { Metadata } from 'next';
 import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
 import { mdxOptions } from '@/lib/page-content';
+import { pageMetadata, toIsoDate } from '@/lib/site';
+import { postJsonLd } from '@/lib/structured-data';
 import DictationButton from './_components/DictationButton';
 import { DownloadButton } from '@/components/DownloadButton';
 import { DraftBadge } from '@/components/DraftBadge';
+import { JsonLd } from '@/components/JsonLd';
 
 type Params = { slug: string };
 
@@ -25,20 +28,21 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
+  const path = `/writing/${post.slug}`;
+  const publishedTime = toIsoDate(post.date);
+
+  return pageMetadata({
     title: post.title,
     description: post.description,
-    openGraph: {
-      title: `${post.title} | Germán Meza`,
-      description: post.description,
-      url: `https://germanamz.com/writing/${post.slug}`,
+    path,
+    imagePath: `${path}/opengraph-image`,
+    imageAlt: post.title,
+    article: {
+      publishedTime,
+      modifiedTime: toIsoDate(post.updated) ?? publishedTime,
+      tags: post.tags,
     },
-    alternates: {
-      types: {
-        'text/markdown': `/md/writing/${post.slug}`,
-      },
-    },
-  };
+  });
 }
 
 export default async function PostPage({
@@ -67,20 +71,25 @@ export default async function PostPage({
 
   return (
     <article>
+      <JsonLd data={postJsonLd(post)} />
       <header className="mb-8">
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold">{post.title}</h1>
           {!post.published && <DraftBadge />}
         </div>
-        <div className="flex items-center gap-2 text-gray-500 mt-1">
+        <div className="flex items-center gap-2 text-base-content/65 mt-1">
           <span>
-            {formattedDate} · {post.readingMinutes} min read
+            <time dateTime={toIsoDate(post.date)?.slice(0, 10)}>{formattedDate}</time>
+            {' '}· {post.readingMinutes} min read
           </span>
           <DictationButton text={toSpokenText(post.content)} />
           <DownloadButton />
         </div>
         {formattedUpdated && (
-          <p className="text-sm text-gray-400 mt-1">Updated {formattedUpdated}</p>
+          <p className="text-sm text-base-content/65 mt-1">
+            Updated{' '}
+            <time dateTime={toIsoDate(post.updated)?.slice(0, 10)}>{formattedUpdated}</time>
+          </p>
         )}
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">

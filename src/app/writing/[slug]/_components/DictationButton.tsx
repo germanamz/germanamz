@@ -72,9 +72,8 @@ export default function DictationButton({ text }: Props) {
         type="button"
         onClick={isPlaying ? pause : play}
         className="btn btn-xs btn-ghost"
-        aria-label={isPlaying ? 'Pause dictation' : 'Play dictation'}
       >
-        {isPlaying ? <FiPause /> : <FiPlay />}
+        {isPlaying ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
         <span>{isPlaying ? 'Pause' : status === 'paused' ? 'Resume' : 'Listen'}</span>
       </button>
       {status !== 'idle' && (
@@ -84,7 +83,7 @@ export default function DictationButton({ text }: Props) {
           className="btn btn-xs btn-ghost"
           aria-label="Stop dictation"
         >
-          <FiSquare />
+          <FiSquare aria-hidden="true" />
         </button>
       )}
     </div>
