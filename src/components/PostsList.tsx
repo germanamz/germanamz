@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
+import { toIsoDate } from '@/lib/site';
 import { DraftBadge } from '@/components/DraftBadge';
 
 export const PostsList = () => {
@@ -20,18 +21,21 @@ export const PostsList = () => {
         return (
           <li key={post.slug}>
             <div className="flex items-center gap-2">
-              <Link
-                href={`/writing/${post.slug}`}
-                className="hover:underline"
-              >
-                <h3 className="text-lg font-semibold">{post.title}</h3>
-              </Link>
+              <h2 className="text-lg font-semibold">
+                <Link
+                  href={`/writing/${post.slug}`}
+                  className="hover:underline"
+                >
+                  {post.title}
+                </Link>
+              </h2>
               {!post.published && <DraftBadge />}
             </div>
-            <p className="text-sm text-gray-500">
-              {formattedDate} · {post.readingMinutes} min read
+            <p className="text-sm text-base-content/65">
+              <time dateTime={toIsoDate(post.date)?.slice(0, 10)}>{formattedDate}</time>
+              {' '}· {post.readingMinutes} min read
             </p>
-            <p className="text-gray-700 mt-1">{post.description}</p>
+            <p className="text-base-content/80 mt-1">{post.description}</p>
           </li>
         );
       })}

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAllPosts } from '@/lib/posts';
+import { absoluteUrl } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -13,15 +14,15 @@ export function GET() {
     '',
     '## Pages',
     '',
-    '- [Home](https://germanamz.com/md): bio and recent writing',
-    '- [Resume](https://germanamz.com/md/resume): experience, skills, and education',
-    '- [Writing index](https://germanamz.com/md/writing): all published posts',
+    `- [Home](${absoluteUrl('/md')}): bio and recent writing`,
+    `- [Resume](${absoluteUrl('/md/resume')}): experience, skills, and education`,
+    `- [Writing index](${absoluteUrl('/md/writing')}): all published posts`,
     '',
     '## Posts',
     '',
     ...posts.map(
       (post) =>
-        `- [${post.title}](https://germanamz.com/md/writing/${post.slug}): ${post.description}`,
+        `- [${post.title}](${absoluteUrl(`/md/writing/${post.slug}`)}): ${post.description}`,
     ),
     '',
   ];
