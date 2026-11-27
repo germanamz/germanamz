@@ -7,6 +7,13 @@ export type PostMeta = {
   date: string;
   updated?: string;
   description: string;
+  /**
+   * Optional search-facing overrides for the `<title>` and meta description.
+   * The on-page heading and the listings keep `title` / `description`, so a
+   * post can have an editorial title and still name its topic in results.
+   */
+  seoTitle?: string;
+  seoDescription?: string;
   tags: string[];
   published: boolean;
   readingMinutes: number;
@@ -69,6 +76,8 @@ function parsePost(slug: string, source: string): Post {
     date: data.date ?? '',
     updated: data.updated,
     description: data.description ?? '',
+    seoTitle: data.seoTitle,
+    seoDescription: data.seoDescription,
     tags: data.tags ?? [],
     published: data.published ?? false,
     readingMinutes: getReadingMinutes(content),

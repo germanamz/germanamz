@@ -3,7 +3,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import type { Metadata } from 'next';
 import { getPostBySlug, getAllPostSlugs, toSpokenText } from '@/lib/posts';
 import { mdxOptions } from '@/lib/page-content';
-import { pageMetadata, toIsoDate } from '@/lib/site';
+import Link from 'next/link';
+import { SITE_NAME, pageMetadata, toIsoDate } from '@/lib/site';
 import { postJsonLd } from '@/lib/structured-data';
 import DictationButton from './_components/DictationButton';
 import { DownloadButton } from '@/components/DownloadButton';
@@ -32,11 +33,12 @@ export async function generateMetadata({
   const publishedTime = toIsoDate(post.date);
 
   return pageMetadata({
-    title: post.title,
-    description: post.description,
+    title: post.seoTitle ?? post.title,
+    description: post.seoDescription ?? post.description,
     path,
     imagePath: `${path}/opengraph-image`,
     imageAlt: post.title,
+    keywords: post.tags,
     article: {
       publishedTime,
       modifiedTime: toIsoDate(post.updated) ?? publishedTime,
@@ -79,6 +81,10 @@ export default async function PostPage({
         </div>
         <div className="flex items-center gap-2 text-base-content/65 mt-1">
           <span>
+            <Link href="/" rel="author" className="hover:underline">
+              {SITE_NAME}
+            </Link>
+            {' '}·{' '}
             <time dateTime={toIsoDate(post.date)?.slice(0, 10)}>{formattedDate}</time>
             {' '}· {post.readingMinutes} min read
           </span>
