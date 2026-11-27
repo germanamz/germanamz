@@ -1,14 +1,7 @@
 import { NextResponse } from 'next/server';
-import homeSource from '../../../../content/pages/home.mdx';
-import resumeSource from '../../../../content/pages/resume.mdx';
-import { postSources } from '@/lib/posts-content.generated';
-import { getAllPostSlugs, getAllPosts, getPostBySlug } from '@/lib/posts';
+import { getAllPostSlugs, getPostBySlug } from '@/lib/posts';
+import { pageMarkdown, postMarkdown, writingIndexMarkdown } from '@/lib/markdown-mirror';
 import { absoluteUrl } from '@/lib/site';
-
-const PAGE_SOURCES: Record<string, string> = {
-  '': homeSource,
-  resume: resumeSource,
-};
 
 // `key` is the path under /md, which is also the path of the HTML page this
 // markdown mirrors. The `Link: rel="canonical"` header tells search engines
@@ -23,15 +16,6 @@ function markdownResponse(body: string, key: string) {
       Link: `<${canonical}>; rel="canonical"`,
     },
   });
-}
-
-function renderWritingIndex(): string {
-  const posts = getAllPosts();
-  const lines = ['# Writing', ''];
-  for (const post of posts) {
-    lines.push(`- [${post.title}](/md/writing/${post.slug}) — ${post.description}`);
-  }
-  return lines.join('\n') + '\n';
 }
 
 export const dynamic = 'force-static';
@@ -53,18 +37,19 @@ export async function GET(
   const key = segments.join('/');
 
   if (key === 'writing') {
-    return markdownResponse(renderWritingIndex(), key);
+    return markdownResponse(writingIndexMarkdown(), key);
   }
 
   if (key.startsWith('writing/')) {
     const slug = key.slice('writing/'.length);
-    // getPostBySlug applies the published/showsDrafts() gate; postSources
-    // holds every .mdx in the submodule, drafts included.
-    if (!getPostBySlug(slug)) return new NextResponse('Not found', { status: 404 });
-    return markdownResponse(postSources[slug], key);
+    // getPostBySlug applies the published/showsDrafts() gate, so drafts in
+    // the submodule stay unreachable in production.
+    const post = getPostBySlug(slug);
+    if (!post) return new NextResponse('Not found', { status: 404 });
+    return markdownResponse(postMarkdown(post), key);
   }
 
-  const source = PAGE_SOURCES[key];
+  const source = pageMarkdown(key);
   if (source === undefined) {
     return new NextResponse('Not found', { status: 404 });
   }

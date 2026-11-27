@@ -4,12 +4,19 @@ import homeSource from '../../content/pages/home.mdx';
 import { mdxComponents, mdxOptions } from '@/lib/page-content';
 import { DownloadButton } from '@/components/DownloadButton';
 import { JsonLd } from '@/components/JsonLd';
-import { SITE_DESCRIPTION, pageMetadata } from '@/lib/site';
+import { HANDLE, PERSON, SITE_DESCRIPTION, SITE_NAME, pageMetadata } from '@/lib/site';
 import { homeJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = pageMetadata({
   description: SITE_DESCRIPTION,
   path: '/',
+  keywords: [
+    SITE_NAME,
+    'German Meza',
+    HANDLE,
+    PERSON.jobTitle,
+    PERSON.employer.name,
+  ],
 });
 
 export default function Home() {

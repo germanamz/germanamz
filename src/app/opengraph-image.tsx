@@ -10,6 +10,6 @@ export const contentType = 'image/png';
 export default function Image() {
   return renderOgImage({
     title: SITE_NAME,
-    subtitle: `${PERSON.jobTitle} · ${PERSON.locality}, México`,
+    subtitle: PERSON.jobTitle,
   });
 }
